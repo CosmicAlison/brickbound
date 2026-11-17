@@ -1,0 +1,3686 @@
+{
+  "schema_version": "1.0",
+  "project": "BRICKBOUND: Dungeon Volley",
+  "status": "preproduction_design_not_validated",
+  "design_date": "2026-11-16",
+  "product": {
+    "platforms": [
+      "desktop_web",
+      "mobile_browser"
+    ],
+    "orientation": "portrait_preferred_responsive_landscape_supported",
+    "genre": [
+      "aim_and_shoot_brick_breaker",
+      "light_rpg",
+      "roguelite"
+    ],
+    "session_target_minutes": [
+      4,
+      8
+    ],
+    "first_shot_target_seconds": 8,
+    "first_reward_target_seconds": 45,
+    "input": [
+      "mouse_drag_release",
+      "touch_drag_release"
+    ],
+    "save": "local_first_with_optional_platform_cloud",
+    "accessibility": [
+      "reduced_motion",
+      "mute_music_and_sfx",
+      "color_independent_brick_markers",
+      "high_contrast_ui",
+      "left_hand_touch_safe_areas"
+    ]
+  },
+  "pillars": [
+    "shoot_in_seconds",
+    "one_more_level",
+    "spectacular_ball_chaos",
+    "short_meaningful_choices",
+    "fair_ads_no_paywalls"
+  ],
+  "core_loop": [
+    "launch_into_current_level",
+    "aim_and_release_volley",
+    "resolve_collision_effects",
+    "telegraph_and_resolve_enemy_turn",
+    "repeat_until_victory_or_defeat",
+    "show_immediate_reward",
+    "optional_upgrade_choice_at_milestone",
+    "next_level_one_click"
+  ],
+  "combat": {
+    "board": {
+      "aspect_ratio": "approx_9_16_centered",
+      "launch_line_y_normalized": 0.9,
+      "safe_bottom_ratio": 0.12,
+      "wall_bounces": true,
+      "ball_cap_total": 32,
+      "ball_cap_spawned_per_volley": 8
+    },
+    "volley": {
+      "initial_balls": 8,
+      "spawn_interval_ms": 75,
+      "ball_speed_px_per_s_at_720_height": 740,
+      "collision_damage_base": 1,
+      "trajectory_preview_reflections": 2,
+      "max_real_time_seconds": 11,
+      "auto_recall_after_seconds": 9,
+      "fast_forward_unlocked_after_volley_seconds": 3,
+      "fast_forward_multiplier": 2.5,
+      "ball_return_rule": "next_launcher_x_equal_to_first_ball_floor_contact_clamped",
+      "cannot_lose_balls_permanently": true
+    },
+    "enemy": {
+      "attack_frequency_turns": 2,
+      "telegraph_one_turn_ahead": true,
+      "player_max_hp": 12,
+      "starting_hp": 12,
+      "standard_failure": "restart_current_stage_with_full_hp",
+      "no_energy_system": true,
+      "enemy_actions_cap_per_turn": 3
+    },
+    "aim_assist": {
+      "first_3_levels": true,
+      "snap_degrees": 0,
+      "predictive_segments": 2
+    },
+    "win_loss": {
+      "win": "clear_enemies_or_level_core",
+      "lose": "hero_hp_zero",
+      "no_forced_retry_ad": true
+    }
+  },
+  "worlds": [
+    {
+      "id": "W1",
+      "name": "Mosswood Ruins",
+      "accent": "#69B58B",
+      "background": "#243E35",
+      "common_enemy": "sporeling",
+      "elite_enemy": "thicket_guardian",
+      "boss": "Rootheart",
+      "brick_pool": [
+        "stone",
+        "cracked",
+        "explosive"
+      ],
+      "mechanic": "bloom",
+      "level_ids": [
+        "1-01",
+        "1-02",
+        "1-03",
+        "1-04",
+        "1-05",
+        "1-06",
+        "1-07",
+        "1-08",
+        "1-09",
+        "1-10"
+      ],
+      "unlocked_by": "default"
+    },
+    {
+      "id": "W2",
+      "name": "Ember Quarry",
+      "accent": "#F4A261",
+      "background": "#57362F",
+      "common_enemy": "ember_imp",
+      "elite_enemy": "forge_guard",
+      "boss": "Cinderjaw",
+      "brick_pool": [
+        "stone",
+        "metal",
+        "explosive",
+        "lava"
+      ],
+      "mechanic": "heat",
+      "level_ids": [
+        "2-01",
+        "2-02",
+        "2-03",
+        "2-04",
+        "2-05",
+        "2-06",
+        "2-07",
+        "2-08",
+        "2-09",
+        "2-10"
+      ],
+      "unlocked_by": "1-10"
+    },
+    {
+      "id": "W3",
+      "name": "Moonlit Crypt",
+      "accent": "#B49CF2",
+      "background": "#302B50",
+      "common_enemy": "bone_archer",
+      "elite_enemy": "crypt_mender",
+      "boss": "Bone King",
+      "brick_pool": [
+        "stone",
+        "bone",
+        "cursed",
+        "mirror"
+      ],
+      "mechanic": "rebuild",
+      "level_ids": [
+        "3-01",
+        "3-02",
+        "3-03",
+        "3-04",
+        "3-05",
+        "3-06",
+        "3-07",
+        "3-08",
+        "3-09",
+        "3-10"
+      ],
+      "unlocked_by": "2-10"
+    },
+    {
+      "id": "W4",
+      "name": "Frostglass Peaks",
+      "accent": "#78D8ED",
+      "background": "#29485D",
+      "common_enemy": "frost_wisp",
+      "elite_enemy": "ice_guardian",
+      "boss": "Glacier Eye",
+      "brick_pool": [
+        "ice",
+        "mirror",
+        "stone",
+        "crystal"
+      ],
+      "mechanic": "freeze",
+      "level_ids": [
+        "4-01",
+        "4-02",
+        "4-03",
+        "4-04",
+        "4-05",
+        "4-06",
+        "4-07",
+        "4-08",
+        "4-09",
+        "4-10"
+      ],
+      "unlocked_by": "3-10"
+    },
+    {
+      "id": "W5",
+      "name": "Clockwork Vault",
+      "accent": "#EDC66D",
+      "background": "#484434",
+      "common_enemy": "clockwork_drone",
+      "elite_enemy": "iron_sentinel",
+      "boss": "Clockwork Dragon",
+      "brick_pool": [
+        "metal",
+        "conveyor",
+        "mirror",
+        "explosive"
+      ],
+      "mechanic": "shift",
+      "level_ids": [
+        "5-01",
+        "5-02",
+        "5-03",
+        "5-04",
+        "5-05",
+        "5-06",
+        "5-07",
+        "5-08",
+        "5-09",
+        "5-10"
+      ],
+      "unlocked_by": "4-10"
+    },
+    {
+      "id": "W6",
+      "name": "Starfall Sanctum",
+      "accent": "#E5A3DF",
+      "background": "#3A2A54",
+      "common_enemy": "void_sprite",
+      "elite_enemy": "rift_keeper",
+      "boss": "The Astral Warden",
+      "brick_pool": [
+        "portal",
+        "cursed",
+        "crystal",
+        "metal"
+      ],
+      "mechanic": "teleport",
+      "level_ids": [
+        "6-01",
+        "6-02",
+        "6-03",
+        "6-04",
+        "6-05",
+        "6-06",
+        "6-07",
+        "6-08",
+        "6-09",
+        "6-10"
+      ],
+      "unlocked_by": "5-10"
+    }
+  ],
+  "levels": [
+    {
+      "id": "1-01",
+      "world_id": "W1",
+      "stage_index": 1,
+      "kind": "combat",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "staggered_wall",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 3,
+        "empty_lane_min": 1,
+        "generation_seed": 1001,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "sporeling",
+          "count": 1,
+          "hp_multiplier": 1.0
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 1,
+      "target_completion_seconds": 70,
+      "reward": {
+        "gold": 21,
+        "xp": 11,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": "drag_to_aim",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "1-02",
+      "world_id": "W1",
+      "stage_index": 2,
+      "kind": "combat",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "split_towers",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 4,
+        "empty_lane_min": 1,
+        "generation_seed": 1002,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "sporeling",
+          "count": 1,
+          "hp_multiplier": 1.04
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 1,
+      "target_completion_seconds": 70,
+      "reward": {
+        "gold": 24,
+        "xp": 13,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": "wall_bounce",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "1-03",
+      "world_id": "W1",
+      "stage_index": 3,
+      "kind": "combat",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "funnel",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 4,
+        "empty_lane_min": 1,
+        "generation_seed": 1003,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "sporeling",
+          "count": 1,
+          "hp_multiplier": 1.09
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 1,
+      "target_completion_seconds": 70,
+      "reward": {
+        "gold": 27,
+        "xp": 15,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": "break_explosive",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "1-04",
+      "world_id": "W1",
+      "stage_index": 4,
+      "kind": "combat",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "protected_core",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 5,
+        "empty_lane_min": 1,
+        "generation_seed": 1004,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "sporeling",
+          "count": 2,
+          "hp_multiplier": 1.14
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 1,
+      "target_completion_seconds": 85,
+      "reward": {
+        "gold": 30,
+        "xp": 17,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "1-05",
+      "world_id": "W1",
+      "stage_index": 5,
+      "kind": "elite",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "side_pockets",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 5,
+        "empty_lane_min": 1,
+        "generation_seed": 1005,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "thicket_guardian",
+          "count": 1,
+          "hp_multiplier": 1.18
+        }
+      ],
+      "turn_limit_soft": 6,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 100,
+      "reward": {
+        "gold": 66,
+        "xp": 38,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "elite_shield",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "1-06",
+      "world_id": "W1",
+      "stage_index": 6,
+      "kind": "combat",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "zigzag",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 6,
+        "empty_lane_min": 1,
+        "generation_seed": 1006,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "sporeling",
+          "count": 2,
+          "hp_multiplier": 1.23
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 85,
+      "reward": {
+        "gold": 36,
+        "xp": 21,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "1-07",
+      "world_id": "W1",
+      "stage_index": 7,
+      "kind": "treasure",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "crossfire",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 6,
+        "empty_lane_min": 1,
+        "generation_seed": 1007,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [],
+      "turn_limit_soft": 4,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 55,
+      "reward": {
+        "gold": 39,
+        "xp": 23,
+        "relic_choice": false,
+        "chest": true
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "destroy_treasure_core"
+    },
+    {
+      "id": "1-08",
+      "world_id": "W1",
+      "stage_index": 8,
+      "kind": "combat",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "weak_point",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 7,
+        "empty_lane_min": 1,
+        "generation_seed": 1008,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "sporeling",
+          "count": 3,
+          "hp_multiplier": 1.31
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 85,
+      "reward": {
+        "gold": 42,
+        "xp": 25,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "1-09",
+      "world_id": "W1",
+      "stage_index": 9,
+      "kind": "combat",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "open_corridor",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 7,
+        "empty_lane_min": 1,
+        "generation_seed": 1009,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "sporeling",
+          "count": 3,
+          "hp_multiplier": 1.36
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 85,
+      "reward": {
+        "gold": 45,
+        "xp": 27,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "1-10",
+      "world_id": "W1",
+      "stage_index": 10,
+      "kind": "boss",
+      "theme": "Mosswood Ruins",
+      "layout": {
+        "pattern": "staggered_wall",
+        "columns": 6,
+        "rows": 5,
+        "blocker_count": 8,
+        "empty_lane_min": 1,
+        "generation_seed": 1010,
+        "brick_pool": [
+          "stone",
+          "cracked",
+          "explosive"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "Rootheart",
+          "count": 1,
+          "hp_multiplier": 1.41
+        }
+      ],
+      "turn_limit_soft": 9,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 115,
+      "reward": {
+        "gold": 144,
+        "xp": 87,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "boss_weakpoint",
+      "unlock_on_clear": "next_world",
+      "win_condition": "destroy_boss_core",
+      "boss_phases": [
+        {
+          "at_hp_pct": 100,
+          "behavior": "summon_cover"
+        },
+        {
+          "at_hp_pct": 60,
+          "behavior": "bloom_attack"
+        },
+        {
+          "at_hp_pct": 25,
+          "behavior": "expose_weakpoint_after_cover_break"
+        }
+      ]
+    },
+    {
+      "id": "2-01",
+      "world_id": "W2",
+      "stage_index": 1,
+      "kind": "combat",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "funnel",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 5,
+        "empty_lane_min": 1,
+        "generation_seed": 1102,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "ember_imp",
+          "count": 1,
+          "hp_multiplier": 1.07
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 1,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 34,
+        "xp": 17,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": "heat",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "2-02",
+      "world_id": "W2",
+      "stage_index": 2,
+      "kind": "combat",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "protected_core",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 6,
+        "empty_lane_min": 1,
+        "generation_seed": 1103,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "ember_imp",
+          "count": 1,
+          "hp_multiplier": 1.11
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 1,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 37,
+        "xp": 19,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "2-03",
+      "world_id": "W2",
+      "stage_index": 3,
+      "kind": "combat",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "side_pockets",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 6,
+        "empty_lane_min": 1,
+        "generation_seed": 1104,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "ember_imp",
+          "count": 1,
+          "hp_multiplier": 1.16
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 1,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 40,
+        "xp": 21,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "2-04",
+      "world_id": "W2",
+      "stage_index": 4,
+      "kind": "combat",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "zigzag",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 7,
+        "empty_lane_min": 1,
+        "generation_seed": 1105,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "ember_imp",
+          "count": 2,
+          "hp_multiplier": 1.21
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 1,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 43,
+        "xp": 23,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "2-05",
+      "world_id": "W2",
+      "stage_index": 5,
+      "kind": "elite",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "crossfire",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 7,
+        "empty_lane_min": 1,
+        "generation_seed": 1106,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "forge_guard",
+          "count": 1,
+          "hp_multiplier": 1.25
+        }
+      ],
+      "turn_limit_soft": 6,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 110,
+      "reward": {
+        "gold": 92,
+        "xp": 50,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "elite_shield",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "2-06",
+      "world_id": "W2",
+      "stage_index": 6,
+      "kind": "combat",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "weak_point",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 8,
+        "empty_lane_min": 1,
+        "generation_seed": 1107,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "ember_imp",
+          "count": 2,
+          "hp_multiplier": 1.3
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 49,
+        "xp": 27,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "2-07",
+      "world_id": "W2",
+      "stage_index": 7,
+      "kind": "treasure",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "open_corridor",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 8,
+        "empty_lane_min": 1,
+        "generation_seed": 1108,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 0,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [],
+      "turn_limit_soft": 4,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 65,
+      "reward": {
+        "gold": 52,
+        "xp": 29,
+        "relic_choice": false,
+        "chest": true
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "destroy_treasure_core"
+    },
+    {
+      "id": "2-08",
+      "world_id": "W2",
+      "stage_index": 8,
+      "kind": "combat",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "staggered_wall",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 9,
+        "empty_lane_min": 1,
+        "generation_seed": 1109,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "ember_imp",
+          "count": 3,
+          "hp_multiplier": 1.39
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 55,
+        "xp": 31,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "2-09",
+      "world_id": "W2",
+      "stage_index": 9,
+      "kind": "combat",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "split_towers",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 9,
+        "empty_lane_min": 1,
+        "generation_seed": 1110,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "ember_imp",
+          "count": 3,
+          "hp_multiplier": 1.43
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 58,
+        "xp": 33,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "2-10",
+      "world_id": "W2",
+      "stage_index": 10,
+      "kind": "boss",
+      "theme": "Ember Quarry",
+      "layout": {
+        "pattern": "funnel",
+        "columns": 7,
+        "rows": 5,
+        "blocker_count": 10,
+        "empty_lane_min": 1,
+        "generation_seed": 1111,
+        "brick_pool": [
+          "stone",
+          "metal",
+          "explosive",
+          "lava"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "Cinderjaw",
+          "count": 1,
+          "hp_multiplier": 1.48
+        }
+      ],
+      "turn_limit_soft": 9,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 125,
+      "reward": {
+        "gold": 183,
+        "xp": 105,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "boss_weakpoint",
+      "unlock_on_clear": "next_world",
+      "win_condition": "destroy_boss_core",
+      "boss_phases": [
+        {
+          "at_hp_pct": 100,
+          "behavior": "summon_cover"
+        },
+        {
+          "at_hp_pct": 60,
+          "behavior": "heat_attack"
+        },
+        {
+          "at_hp_pct": 25,
+          "behavior": "expose_weakpoint_after_cover_break"
+        }
+      ]
+    },
+    {
+      "id": "3-01",
+      "world_id": "W3",
+      "stage_index": 1,
+      "kind": "combat",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "side_pockets",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 7,
+        "empty_lane_min": 1,
+        "generation_seed": 1203,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "bone_archer",
+          "count": 1,
+          "hp_multiplier": 1.14
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 47,
+        "xp": 23,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": "rebuild",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "3-02",
+      "world_id": "W3",
+      "stage_index": 2,
+      "kind": "combat",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "zigzag",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 8,
+        "empty_lane_min": 1,
+        "generation_seed": 1204,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "bone_archer",
+          "count": 1,
+          "hp_multiplier": 1.19
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 50,
+        "xp": 25,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "3-03",
+      "world_id": "W3",
+      "stage_index": 3,
+      "kind": "combat",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "crossfire",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 8,
+        "empty_lane_min": 1,
+        "generation_seed": 1205,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "bone_archer",
+          "count": 1,
+          "hp_multiplier": 1.23
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 53,
+        "xp": 27,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "3-04",
+      "world_id": "W3",
+      "stage_index": 4,
+      "kind": "combat",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "weak_point",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 9,
+        "empty_lane_min": 1,
+        "generation_seed": 1206,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "bone_archer",
+          "count": 2,
+          "hp_multiplier": 1.27
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 2,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 56,
+        "xp": 29,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "3-05",
+      "world_id": "W3",
+      "stage_index": 5,
+      "kind": "elite",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "open_corridor",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 9,
+        "empty_lane_min": 1,
+        "generation_seed": 1207,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "crypt_mender",
+          "count": 1,
+          "hp_multiplier": 1.32
+        }
+      ],
+      "turn_limit_soft": 6,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 110,
+      "reward": {
+        "gold": 118,
+        "xp": 62,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "elite_shield",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "3-06",
+      "world_id": "W3",
+      "stage_index": 6,
+      "kind": "combat",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "staggered_wall",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 10,
+        "empty_lane_min": 1,
+        "generation_seed": 1208,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "bone_archer",
+          "count": 2,
+          "hp_multiplier": 1.37
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 62,
+        "xp": 33,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "3-07",
+      "world_id": "W3",
+      "stage_index": 7,
+      "kind": "treasure",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "split_towers",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 10,
+        "empty_lane_min": 1,
+        "generation_seed": 1209,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [],
+      "turn_limit_soft": 4,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 65,
+      "reward": {
+        "gold": 65,
+        "xp": 35,
+        "relic_choice": false,
+        "chest": true
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "destroy_treasure_core"
+    },
+    {
+      "id": "3-08",
+      "world_id": "W3",
+      "stage_index": 8,
+      "kind": "combat",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "funnel",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 11,
+        "empty_lane_min": 1,
+        "generation_seed": 1210,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "bone_archer",
+          "count": 3,
+          "hp_multiplier": 1.46
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 68,
+        "xp": 37,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "3-09",
+      "world_id": "W3",
+      "stage_index": 9,
+      "kind": "combat",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "protected_core",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 11,
+        "empty_lane_min": 1,
+        "generation_seed": 1211,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "bone_archer",
+          "count": 3,
+          "hp_multiplier": 1.5
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 95,
+      "reward": {
+        "gold": 71,
+        "xp": 39,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "3-10",
+      "world_id": "W3",
+      "stage_index": 10,
+      "kind": "boss",
+      "theme": "Moonlit Crypt",
+      "layout": {
+        "pattern": "side_pockets",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 12,
+        "empty_lane_min": 1,
+        "generation_seed": 1212,
+        "brick_pool": [
+          "stone",
+          "bone",
+          "cursed",
+          "mirror"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "Bone King",
+          "count": 1,
+          "hp_multiplier": 1.54
+        }
+      ],
+      "turn_limit_soft": 9,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 125,
+      "reward": {
+        "gold": 222,
+        "xp": 123,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "boss_weakpoint",
+      "unlock_on_clear": "next_world",
+      "win_condition": "destroy_boss_core",
+      "boss_phases": [
+        {
+          "at_hp_pct": 100,
+          "behavior": "summon_cover"
+        },
+        {
+          "at_hp_pct": 60,
+          "behavior": "rebuild_attack"
+        },
+        {
+          "at_hp_pct": 25,
+          "behavior": "expose_weakpoint_after_cover_break"
+        }
+      ]
+    },
+    {
+      "id": "4-01",
+      "world_id": "W4",
+      "stage_index": 1,
+      "kind": "combat",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "crossfire",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 9,
+        "empty_lane_min": 1,
+        "generation_seed": 1304,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "frost_wisp",
+          "count": 1,
+          "hp_multiplier": 1.21
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 60,
+        "xp": 29,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": "freeze",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "4-02",
+      "world_id": "W4",
+      "stage_index": 2,
+      "kind": "combat",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "weak_point",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 10,
+        "empty_lane_min": 1,
+        "generation_seed": 1305,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "frost_wisp",
+          "count": 1,
+          "hp_multiplier": 1.25
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 63,
+        "xp": 31,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "4-03",
+      "world_id": "W4",
+      "stage_index": 3,
+      "kind": "combat",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "open_corridor",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 10,
+        "empty_lane_min": 1,
+        "generation_seed": 1306,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "frost_wisp",
+          "count": 1,
+          "hp_multiplier": 1.3
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 66,
+        "xp": 33,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "4-04",
+      "world_id": "W4",
+      "stage_index": 4,
+      "kind": "combat",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "staggered_wall",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 11,
+        "empty_lane_min": 1,
+        "generation_seed": 1307,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "frost_wisp",
+          "count": 2,
+          "hp_multiplier": 1.34
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 69,
+        "xp": 35,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "4-05",
+      "world_id": "W4",
+      "stage_index": 5,
+      "kind": "elite",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "split_towers",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 11,
+        "empty_lane_min": 1,
+        "generation_seed": 1308,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "ice_guardian",
+          "count": 1,
+          "hp_multiplier": 1.39
+        }
+      ],
+      "turn_limit_soft": 6,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 120,
+      "reward": {
+        "gold": 144,
+        "xp": 74,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "elite_shield",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "4-06",
+      "world_id": "W4",
+      "stage_index": 6,
+      "kind": "combat",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "funnel",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 12,
+        "empty_lane_min": 1,
+        "generation_seed": 1309,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "frost_wisp",
+          "count": 2,
+          "hp_multiplier": 1.44
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 75,
+        "xp": 39,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "4-07",
+      "world_id": "W4",
+      "stage_index": 7,
+      "kind": "treasure",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "protected_core",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 12,
+        "empty_lane_min": 1,
+        "generation_seed": 1310,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 1,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [],
+      "turn_limit_soft": 4,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 75,
+      "reward": {
+        "gold": 78,
+        "xp": 41,
+        "relic_choice": false,
+        "chest": true
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "destroy_treasure_core"
+    },
+    {
+      "id": "4-08",
+      "world_id": "W4",
+      "stage_index": 8,
+      "kind": "combat",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "side_pockets",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 13,
+        "empty_lane_min": 1,
+        "generation_seed": 1311,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "frost_wisp",
+          "count": 3,
+          "hp_multiplier": 1.52
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 81,
+        "xp": 43,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "4-09",
+      "world_id": "W4",
+      "stage_index": 9,
+      "kind": "combat",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "zigzag",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 13,
+        "empty_lane_min": 1,
+        "generation_seed": 1312,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "frost_wisp",
+          "count": 3,
+          "hp_multiplier": 1.57
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 84,
+        "xp": 45,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "4-10",
+      "world_id": "W4",
+      "stage_index": 10,
+      "kind": "boss",
+      "theme": "Frostglass Peaks",
+      "layout": {
+        "pattern": "crossfire",
+        "columns": 7,
+        "rows": 6,
+        "blocker_count": 14,
+        "empty_lane_min": 1,
+        "generation_seed": 1313,
+        "brick_pool": [
+          "ice",
+          "mirror",
+          "stone",
+          "crystal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "Glacier Eye",
+          "count": 1,
+          "hp_multiplier": 1.61
+        }
+      ],
+      "turn_limit_soft": 9,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 135,
+      "reward": {
+        "gold": 261,
+        "xp": 141,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "boss_weakpoint",
+      "unlock_on_clear": "next_world",
+      "win_condition": "destroy_boss_core",
+      "boss_phases": [
+        {
+          "at_hp_pct": 100,
+          "behavior": "summon_cover"
+        },
+        {
+          "at_hp_pct": 60,
+          "behavior": "freeze_attack"
+        },
+        {
+          "at_hp_pct": 25,
+          "behavior": "expose_weakpoint_after_cover_break"
+        }
+      ]
+    },
+    {
+      "id": "5-01",
+      "world_id": "W5",
+      "stage_index": 1,
+      "kind": "combat",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "open_corridor",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 11,
+        "empty_lane_min": 1,
+        "generation_seed": 1405,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "clockwork_drone",
+          "count": 1,
+          "hp_multiplier": 1.28
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 73,
+        "xp": 35,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": "shift",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "5-02",
+      "world_id": "W5",
+      "stage_index": 2,
+      "kind": "combat",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "staggered_wall",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 12,
+        "empty_lane_min": 1,
+        "generation_seed": 1406,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "clockwork_drone",
+          "count": 1,
+          "hp_multiplier": 1.32
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 76,
+        "xp": 37,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "5-03",
+      "world_id": "W5",
+      "stage_index": 3,
+      "kind": "combat",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "split_towers",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 12,
+        "empty_lane_min": 1,
+        "generation_seed": 1407,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "clockwork_drone",
+          "count": 1,
+          "hp_multiplier": 1.37
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 79,
+        "xp": 39,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "5-04",
+      "world_id": "W5",
+      "stage_index": 4,
+      "kind": "combat",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "funnel",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 13,
+        "empty_lane_min": 1,
+        "generation_seed": 1408,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "clockwork_drone",
+          "count": 2,
+          "hp_multiplier": 1.42
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 3,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 82,
+        "xp": 41,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "5-05",
+      "world_id": "W5",
+      "stage_index": 5,
+      "kind": "elite",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "protected_core",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 13,
+        "empty_lane_min": 1,
+        "generation_seed": 1409,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "iron_sentinel",
+          "count": 1,
+          "hp_multiplier": 1.46
+        }
+      ],
+      "turn_limit_soft": 6,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 120,
+      "reward": {
+        "gold": 170,
+        "xp": 86,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "elite_shield",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "5-06",
+      "world_id": "W5",
+      "stage_index": 6,
+      "kind": "combat",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "side_pockets",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 14,
+        "empty_lane_min": 1,
+        "generation_seed": 1410,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "clockwork_drone",
+          "count": 2,
+          "hp_multiplier": 1.51
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 88,
+        "xp": 45,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "5-07",
+      "world_id": "W5",
+      "stage_index": 7,
+      "kind": "treasure",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "zigzag",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 14,
+        "empty_lane_min": 1,
+        "generation_seed": 1411,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [],
+      "turn_limit_soft": 4,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 75,
+      "reward": {
+        "gold": 91,
+        "xp": 47,
+        "relic_choice": false,
+        "chest": true
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "destroy_treasure_core"
+    },
+    {
+      "id": "5-08",
+      "world_id": "W5",
+      "stage_index": 8,
+      "kind": "combat",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "crossfire",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 15,
+        "empty_lane_min": 1,
+        "generation_seed": 1412,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 3,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "clockwork_drone",
+          "count": 3,
+          "hp_multiplier": 1.59
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 94,
+        "xp": 49,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "5-09",
+      "world_id": "W5",
+      "stage_index": 9,
+      "kind": "combat",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "weak_point",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 15,
+        "empty_lane_min": 1,
+        "generation_seed": 1413,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 3,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "clockwork_drone",
+          "count": 3,
+          "hp_multiplier": 1.64
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 97,
+        "xp": 51,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "5-10",
+      "world_id": "W5",
+      "stage_index": 10,
+      "kind": "boss",
+      "theme": "Clockwork Vault",
+      "layout": {
+        "pattern": "open_corridor",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 16,
+        "empty_lane_min": 1,
+        "generation_seed": 1414,
+        "brick_pool": [
+          "metal",
+          "conveyor",
+          "mirror",
+          "explosive"
+        ],
+        "brick_hp_bonus": 3,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "Clockwork Dragon",
+          "count": 1,
+          "hp_multiplier": 1.69
+        }
+      ],
+      "turn_limit_soft": 9,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 135,
+      "reward": {
+        "gold": 300,
+        "xp": 159,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "boss_weakpoint",
+      "unlock_on_clear": "next_world",
+      "win_condition": "destroy_boss_core",
+      "boss_phases": [
+        {
+          "at_hp_pct": 100,
+          "behavior": "summon_cover"
+        },
+        {
+          "at_hp_pct": 60,
+          "behavior": "shift_attack"
+        },
+        {
+          "at_hp_pct": 25,
+          "behavior": "expose_weakpoint_after_cover_break"
+        }
+      ]
+    },
+    {
+      "id": "6-01",
+      "world_id": "W6",
+      "stage_index": 1,
+      "kind": "combat",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "split_towers",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 13,
+        "empty_lane_min": 1,
+        "generation_seed": 1506,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "void_sprite",
+          "count": 1,
+          "hp_multiplier": 1.35
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 86,
+        "xp": 41,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": "teleport",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "6-02",
+      "world_id": "W6",
+      "stage_index": 2,
+      "kind": "combat",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "funnel",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 14,
+        "empty_lane_min": 1,
+        "generation_seed": 1507,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "void_sprite",
+          "count": 1,
+          "hp_multiplier": 1.4
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 89,
+        "xp": 43,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "6-03",
+      "world_id": "W6",
+      "stage_index": 3,
+      "kind": "combat",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "protected_core",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 14,
+        "empty_lane_min": 1,
+        "generation_seed": 1508,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "void_sprite",
+          "count": 1,
+          "hp_multiplier": 1.44
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 92,
+        "xp": 45,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "6-04",
+      "world_id": "W6",
+      "stage_index": 4,
+      "kind": "combat",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "side_pockets",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 15,
+        "empty_lane_min": 1,
+        "generation_seed": 1509,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "void_sprite",
+          "count": 2,
+          "hp_multiplier": 1.49
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 4,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 95,
+        "xp": 47,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "6-05",
+      "world_id": "W6",
+      "stage_index": 5,
+      "kind": "elite",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "zigzag",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 15,
+        "empty_lane_min": 1,
+        "generation_seed": 1510,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "rift_keeper",
+          "count": 1,
+          "hp_multiplier": 1.53
+        }
+      ],
+      "turn_limit_soft": 6,
+      "hero_damage_budget": 5,
+      "target_completion_seconds": 120,
+      "reward": {
+        "gold": 196,
+        "xp": 98,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "elite_shield",
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "6-06",
+      "world_id": "W6",
+      "stage_index": 6,
+      "kind": "combat",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "crossfire",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 16,
+        "empty_lane_min": 1,
+        "generation_seed": 1511,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "void_sprite",
+          "count": 2,
+          "hp_multiplier": 1.58
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 5,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 101,
+        "xp": 51,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "6-07",
+      "world_id": "W6",
+      "stage_index": 7,
+      "kind": "treasure",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "weak_point",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 16,
+        "empty_lane_min": 1,
+        "generation_seed": 1512,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 2,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [],
+      "turn_limit_soft": 4,
+      "hero_damage_budget": 5,
+      "target_completion_seconds": 75,
+      "reward": {
+        "gold": 104,
+        "xp": 53,
+        "relic_choice": false,
+        "chest": true
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "destroy_treasure_core"
+    },
+    {
+      "id": "6-08",
+      "world_id": "W6",
+      "stage_index": 8,
+      "kind": "combat",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "open_corridor",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 17,
+        "empty_lane_min": 1,
+        "generation_seed": 1513,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 3,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "void_sprite",
+          "count": 3,
+          "hp_multiplier": 1.67
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 5,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 107,
+        "xp": 55,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "6-09",
+      "world_id": "W6",
+      "stage_index": 9,
+      "kind": "combat",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "staggered_wall",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 17,
+        "empty_lane_min": 1,
+        "generation_seed": 1514,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 3,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "void_sprite",
+          "count": 3,
+          "hp_multiplier": 1.71
+        }
+      ],
+      "turn_limit_soft": 5,
+      "hero_damage_budget": 5,
+      "target_completion_seconds": 105,
+      "reward": {
+        "gold": 110,
+        "xp": 57,
+        "relic_choice": false,
+        "chest": false
+      },
+      "teaches": null,
+      "unlock_on_clear": "next_stage",
+      "win_condition": "defeat_all_enemies"
+    },
+    {
+      "id": "6-10",
+      "world_id": "W6",
+      "stage_index": 10,
+      "kind": "boss",
+      "theme": "Starfall Sanctum",
+      "layout": {
+        "pattern": "split_towers",
+        "columns": 8,
+        "rows": 6,
+        "blocker_count": 17,
+        "empty_lane_min": 1,
+        "generation_seed": 1515,
+        "brick_pool": [
+          "portal",
+          "cursed",
+          "crystal",
+          "metal"
+        ],
+        "brick_hp_bonus": 3,
+        "no_unreachable_pockets": true
+      },
+      "enemies": [
+        {
+          "id": "The Astral Warden",
+          "count": 1,
+          "hp_multiplier": 1.76
+        }
+      ],
+      "turn_limit_soft": 9,
+      "hero_damage_budget": 5,
+      "target_completion_seconds": 135,
+      "reward": {
+        "gold": 339,
+        "xp": 177,
+        "relic_choice": true,
+        "chest": false
+      },
+      "teaches": "boss_weakpoint",
+      "unlock_on_clear": "next_world",
+      "win_condition": "destroy_boss_core",
+      "boss_phases": [
+        {
+          "at_hp_pct": 100,
+          "behavior": "summon_cover"
+        },
+        {
+          "at_hp_pct": 60,
+          "behavior": "teleport_attack"
+        },
+        {
+          "at_hp_pct": 25,
+          "behavior": "expose_weakpoint_after_cover_break"
+        }
+      ]
+    }
+  ],
+  "brick_types": {
+    "stone": {
+      "hp": 2,
+      "behavior": "normal",
+      "telegraph": "none"
+    },
+    "cracked": {
+      "hp": 1,
+      "behavior": "normal",
+      "telegraph": "none"
+    },
+    "explosive": {
+      "hp": 2,
+      "behavior": "on_break_1_damage_cardinal_radius_1",
+      "telegraph": "glow"
+    },
+    "metal": {
+      "hp": 3,
+      "behavior": "resists_non_piercing_25pct",
+      "telegraph": "none"
+    },
+    "lava": {
+      "hp": 2,
+      "behavior": "on_break_deal_1_hero_damage_if_not_shielded",
+      "telegraph": "red_pulse"
+    },
+    "bone": {
+      "hp": 2,
+      "behavior": "can_be_rebuilt_by_mender",
+      "telegraph": "bone_particles"
+    },
+    "cursed": {
+      "hp": 2,
+      "behavior": "first_collision_marks_ball_weakened_for_3_hits",
+      "telegraph": "purple_aura"
+    },
+    "mirror": {
+      "hp": 2,
+      "behavior": "deflect_90_degrees_once_per_volley",
+      "telegraph": "shimmer"
+    },
+    "ice": {
+      "hp": 2,
+      "behavior": "on_survive_25pct_chance_chill_ball_next_2_hits",
+      "telegraph": "blue_flash"
+    },
+    "crystal": {
+      "hp": 3,
+      "behavior": "on_break_spawn_1_bonus_ball_cap_3_per_volley",
+      "telegraph": "sparkle"
+    },
+    "conveyor": {
+      "hp": 2,
+      "behavior": "shift_one_cell_horizontally_on_enemy_turn_if_space",
+      "telegraph": "arrow"
+    },
+    "portal": {
+      "hp": 2,
+      "behavior": "teleport_to_linked_pair_preserve_speed",
+      "telegraph": "swirl"
+    }
+  },
+  "enemy_archetypes": {
+    "sporeling": {
+      "hp": 10,
+      "attack": 1,
+      "every": 2,
+      "action": "adds_1_cracked_brick"
+    },
+    "thicket_guardian": {
+      "hp": 18,
+      "attack": 2,
+      "every": 2,
+      "action": "grows_2_cover_bricks"
+    },
+    "ember_imp": {
+      "hp": 20,
+      "attack": 2,
+      "every": 2,
+      "action": "ignites_1_brick"
+    },
+    "forge_guard": {
+      "hp": 30,
+      "attack": 3,
+      "every": 2,
+      "action": "adds_1_metal_cover"
+    },
+    "bone_archer": {
+      "hp": 32,
+      "attack": 3,
+      "every": 2,
+      "action": "ranged_attack_telegraph"
+    },
+    "crypt_mender": {
+      "hp": 38,
+      "attack": 3,
+      "every": 2,
+      "action": "repairs_1_bone_brick"
+    },
+    "frost_wisp": {
+      "hp": 45,
+      "attack": 4,
+      "every": 2,
+      "action": "chill_next_volley"
+    },
+    "ice_guardian": {
+      "hp": 55,
+      "attack": 4,
+      "every": 2,
+      "action": "creates_2_ice_bricks"
+    },
+    "clockwork_drone": {
+      "hp": 56,
+      "attack": 5,
+      "every": 2,
+      "action": "shifts_brick_row"
+    },
+    "iron_sentinel": {
+      "hp": 68,
+      "attack": 5,
+      "every": 2,
+      "action": "deploys_metal_armor"
+    },
+    "void_sprite": {
+      "hp": 72,
+      "attack": 6,
+      "every": 2,
+      "action": "teleports_to_random_legal_cell"
+    },
+    "rift_keeper": {
+      "hp": 85,
+      "attack": 6,
+      "every": 2,
+      "action": "opens_portal_pair"
+    }
+  },
+  "heroes": {
+    "pyromancer": {
+      "starting_balls": 8,
+      "starter_special": "ember_ball",
+      "active": "flare",
+      "active_cooldown_volleys": 3,
+      "passive": "burning_bricks_explode_when_broken",
+      "unlock": "default"
+    },
+    "ranger": {
+      "starting_balls": 8,
+      "starter_special": "piercer_ball",
+      "active": "line_sight",
+      "active_cooldown_volleys": 3,
+      "passive": "first_ricochet_plus_1_damage",
+      "unlock": "clear_1_10"
+    },
+    "guardian": {
+      "starting_balls": 8,
+      "starter_special": "heavy_ball",
+      "active": "barrier",
+      "active_cooldown_volleys": 3,
+      "passive": "block_first_damage_each_room",
+      "unlock": "clear_2_10"
+    },
+    "arcanist": {
+      "starting_balls": 8,
+      "starter_special": "arc_ball",
+      "active": "refract",
+      "active_cooldown_volleys": 3,
+      "passive": "every_12th_hit_spawns_spark",
+      "unlock": "clear_4_10"
+    }
+  },
+  "run_upgrades": [
+    {
+      "id": "multi_ball",
+      "name": "Extra Volley",
+      "tier": 1,
+      "rarity": "common",
+      "effect": "+2 balls, cap +12",
+      "stack_limit": 3,
+      "weight": 60
+    },
+    {
+      "id": "extra_power",
+      "name": "Sharpened Spell",
+      "tier": 1,
+      "rarity": "common",
+      "effect": "+1 per-ball base damage, cap +3",
+      "stack_limit": 3,
+      "weight": 60
+    },
+    {
+      "id": "bank_shot",
+      "name": "Bank Shot",
+      "tier": 1,
+      "rarity": "common",
+      "effect": "+15% wall bounce damage",
+      "stack_limit": 3,
+      "weight": 60
+    },
+    {
+      "id": "rebound",
+      "name": "Hard Return",
+      "tier": 1,
+      "rarity": "common",
+      "effect": "+1 ball after 10 hits, cap 2",
+      "stack_limit": 3,
+      "weight": 60
+    },
+    {
+      "id": "coin_magnet",
+      "name": "Magnet",
+      "tier": 1,
+      "rarity": "common",
+      "effect": "auto_collect_currency_drops",
+      "stack_limit": 1,
+      "weight": 60
+    },
+    {
+      "id": "ember",
+      "name": "Ember",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "each_5th_collision_burns_target",
+      "stack_limit": 3,
+      "weight": 30
+    },
+    {
+      "id": "blast",
+      "name": "Combustion",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "destroying_burning_brick_damages_orthogonal_neighbors",
+      "stack_limit": 3,
+      "weight": 30
+    },
+    {
+      "id": "pierce",
+      "name": "Piercing",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "first_hit_each_special_ball_pierces",
+      "stack_limit": 3,
+      "weight": 30
+    },
+    {
+      "id": "shock",
+      "name": "Static",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "every_6th_hit_arcs_1_damage_to_neighbor",
+      "stack_limit": 3,
+      "weight": 30
+    },
+    {
+      "id": "frost",
+      "name": "Frostbite",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "freeze_enemy_action_once_per_room",
+      "stack_limit": 1,
+      "weight": 30
+    },
+    {
+      "id": "phoenix",
+      "name": "Phoenix Echo",
+      "tier": 3,
+      "rarity": "rare",
+      "effect": "after_12_breaks_spawn_fire_ball_cap_2",
+      "stack_limit": 1,
+      "weight": 10
+    },
+    {
+      "id": "prism",
+      "name": "Prism",
+      "tier": 3,
+      "rarity": "rare",
+      "effect": "split_special_ball_at_first_wall_bounce_cap_3",
+      "stack_limit": 1,
+      "weight": 10
+    },
+    {
+      "id": "gravity",
+      "name": "Gravity Well",
+      "tier": 3,
+      "rarity": "rare",
+      "effect": "after_15_hits_pull_nearby_balls_to_core_0_7_seconds",
+      "stack_limit": 1,
+      "weight": 10
+    },
+    {
+      "id": "chain",
+      "name": "Chain Reaction",
+      "tier": 3,
+      "rarity": "rare",
+      "effect": "blast_propagates_one_additional_brick",
+      "stack_limit": 1,
+      "weight": 10
+    },
+    {
+      "id": "lucky",
+      "name": "Lucky Relic",
+      "tier": 3,
+      "rarity": "rare",
+      "effect": "upgrade_offer_once_per_run_has_4_choices",
+      "stack_limit": 1,
+      "weight": 10
+    },
+    {
+      "id": "recovery",
+      "name": "Second Wind",
+      "tier": 1,
+      "rarity": "common",
+      "effect": "heal_2_hp_on_room_clear_once_per_3_rooms",
+      "stack_limit": 3,
+      "weight": 60
+    },
+    {
+      "id": "armor",
+      "name": "Runic Guard",
+      "tier": 1,
+      "rarity": "common",
+      "effect": "gain_1_shield_per_2_rooms",
+      "stack_limit": 3,
+      "weight": 60
+    },
+    {
+      "id": "crit",
+      "name": "Critical Orb",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "5pct_collision_double_damage",
+      "stack_limit": 3,
+      "weight": 30
+    },
+    {
+      "id": "vamp",
+      "name": "Vital Spark",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "heal_1_for_25_bricks_destroyed_cap_2_per_room",
+      "stack_limit": 3,
+      "weight": 30
+    },
+    {
+      "id": "focus",
+      "name": "Focused Aim",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "extend_preview_trajectory_by_1_segment",
+      "stack_limit": 1,
+      "weight": 30
+    },
+    {
+      "id": "portal",
+      "name": "Warp Ball",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "one_ball_teleports_to_random_top_lane_once_per_volley",
+      "stack_limit": 3,
+      "weight": 30
+    },
+    {
+      "id": "ricochet",
+      "name": "Trick Shot",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "10pct_chance_duplicate_on_second_sidewall_bounce",
+      "stack_limit": 3,
+      "weight": 30
+    },
+    {
+      "id": "last_stand",
+      "name": "Last Stand",
+      "tier": 3,
+      "rarity": "rare",
+      "effect": "below_30pct_hp_gain_25pct_damage",
+      "stack_limit": 1,
+      "weight": 10
+    },
+    {
+      "id": "charged",
+      "name": "Overcharge",
+      "tier": 3,
+      "rarity": "rare",
+      "effect": "first_4_balls_plus_2_damage",
+      "stack_limit": 1,
+      "weight": 10
+    },
+    {
+      "id": "goldrush",
+      "name": "Treasure Hunter",
+      "tier": 2,
+      "rarity": "uncommon",
+      "effect": "coins_plus_20pct_per_room",
+      "stack_limit": 3,
+      "weight": 30
+    }
+  ],
+  "progression": {
+    "model": "linear_campaign_with_short_roguelite_build_windows",
+    "launch_world_count": 3,
+    "full_content_world_count": 6,
+    "total_authored_stages": 60,
+    "upgrade_choice_stage_indices": [
+      3,
+      6,
+      9
+    ],
+    "upgrade_pool_reset": "on_world_boss_clear_or_run_failure",
+    "keep_gold_and_xp_on_failure": true,
+    "world_checkpoint": "each_level",
+    "boss_gates": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60
+    ],
+    "unlocks": [
+      {
+        "trigger": "clear_1-03",
+        "reward": "relic_choice_system"
+      },
+      {
+        "trigger": "clear_1-05",
+        "reward": "equipment_slot_1"
+      },
+      {
+        "trigger": "clear_1-10",
+        "reward": "ranger_and_world_2"
+      },
+      {
+        "trigger": "clear_2-05",
+        "reward": "daily_bounty"
+      },
+      {
+        "trigger": "clear_2-10",
+        "reward": "guardian_and_world_3"
+      },
+      {
+        "trigger": "clear_3-10",
+        "reward": "endless_mode"
+      },
+      {
+        "trigger": "clear_4-10",
+        "reward": "arcanist"
+      }
+    ],
+    "replay": {
+      "daily_bounty": "3_short_remixed_stages_1_reward_per_calendar_day_no_streak_penalty",
+      "endless": "after_world_3_boss",
+      "endless_scaling": {
+        "enemy_hp_multiplier_per_5_rooms": 1.18,
+        "brick_hp_bonus_per_10_rooms": 1,
+        "hard_cap_bonus_brick_hp": 6,
+        "reward_gold_growth_per_5_rooms": 1.08,
+        "cap_simultaneous_enemies": 4
+      },
+      "no_forced_daily_login": true
+    }
+  },
+  "economy": {
+    "currencies": [
+      {
+        "id": "gold",
+        "sources": [
+          "victory",
+          "daily_bounty",
+          "chests"
+        ],
+        "sinks": [
+          "character_mastery",
+          "equipment",
+          "cosmetic_palette"
+        ],
+        "no_real_money_purchase": true
+      },
+      {
+        "id": "xp",
+        "sources": [
+          "victory"
+        ],
+        "sinks": [
+          "account_level"
+        ],
+        "no_real_money_purchase": true
+      }
+    ],
+    "account_xp_threshold": "round(50 * level ** 1.35)",
+    "gear": {
+      "slots": [
+        "focus",
+        "charm"
+      ],
+      "rarities": [
+        "common",
+        "rare",
+        "epic"
+      ],
+      "equip_cap": 2,
+      "level_cap": 5,
+      "upgrade_cost_gold_by_level": [
+        50,
+        100,
+        180,
+        300,
+        500
+      ],
+      "gear_stat_modifier_cap_pct": 20,
+      "no_random_paid_loot": true
+    },
+    "gold_sink_costs": {
+      "unlock_mastery_tier_1": 150,
+      "unlock_mastery_tier_2": 450,
+      "unlock_mastery_tier_3": 1000,
+      "starter_cosmetic": 300
+    },
+    "rewarded_multiplier": "optional_2x_gold_only_no_xp",
+    "free_path_can_clear_all_content": true,
+    "earnings_balancing_targets": {
+      "first_upgrade_affordable_after_stages": 3,
+      "gear_purchase_affordable_after_stages": 5
+    }
+  },
+  "ads": {
+    "provider": "platform_adapter",
+    "policy": "CrazyGames_only_SDK_ads_when_on_CrazyGames",
+    "basic_launch": "disable_all_ads_and_hide_ad_buttons_or_offer_non_ad_fallback",
+    "full_launch": {
+      "midgame": {
+        "trigger": "stage_clear_summary_after_reward_is_visible",
+        "request_at_natural_breaks": true,
+        "sdk_controls_frequency": true,
+        "no_ad_during_volley_or_aim": true
+      },
+      "rewarded": [
+        {
+          "id": "double_gold",
+          "placement": "stage_clear",
+          "limit": "1_offer_per_eligible_stage",
+          "reward": "add_same_gold_reward_once",
+          "fallback": "continue_normal_reward"
+        },
+        {
+          "id": "second_chance",
+          "placement": "defeat_screen",
+          "limit": "once_per_attempt_if_available",
+          "reward": "resume_with_5_hp_and_same_board_state",
+          "fallback": "retry_without_ad"
+        },
+        {
+          "id": "daily_chest",
+          "placement": "home_after_stage_5",
+          "limit": "1_per_day_if_available",
+          "reward": "gold_or_cosmetic_tokens",
+          "fallback": "hide_offer"
+        }
+      ],
+      "never_chain_ads": true,
+      "no_ad_required_to_finish": true,
+      "pause_audio_physics_and_timers_during_ad": true,
+      "reward_only_on_confirmed_completion": true
+    },
+    "independent_site": "integrate_separate_compliant_ad_provider_and_consent_rules_before_enabling"
+  },
+  "screens": [
+    {
+      "id": "boot",
+      "goal": "first_gameplay_under_8_seconds_after_load",
+      "elements": [
+        "logo_small",
+        "progress_if_needed"
+      ],
+      "entry": "app_loaded",
+      "exit": "auto_to_first_level_or_home"
+    },
+    {
+      "id": "first_play",
+      "goal": "shoot_without_menu",
+      "elements": [
+        "board",
+        "drag_arrow_hand_hint",
+        "minimal_top_hp_and_stage",
+        "launcher"
+      ],
+      "entry": "new_user",
+      "exit": "first_shot"
+    },
+    {
+      "id": "battle",
+      "goal": "read_angle_and_targets",
+      "elements": [
+        "stage_progress",
+        "hero_hp",
+        "enemy_hp",
+        "aim_line",
+        "balls_count",
+        "active_skill",
+        "mute_pause"
+      ],
+      "entry": "stage_start",
+      "exit": "victory_or_defeat"
+    },
+    {
+      "id": "stage_clear",
+      "goal": "reinforce_and_continue",
+      "elements": [
+        "clear_feedback",
+        "gold_gain",
+        "xp_gain",
+        "one_prominent_next_button",
+        "optional_rewarded_offer_if_eligible"
+      ],
+      "entry": "victory",
+      "exit": "next_stage"
+    },
+    {
+      "id": "upgrade_choice",
+      "goal": "choose_one_power_in_under_7_seconds",
+      "elements": [
+        "three_tappable_upgrade_cards",
+        "simple_synergy_tags",
+        "skip_small"
+      ],
+      "entry": "milestone",
+      "exit": "next_stage"
+    },
+    {
+      "id": "defeat",
+      "goal": "retry_immediately",
+      "elements": [
+        "why_failed",
+        "retry_primary",
+        "optional_revival_ad_secondary",
+        "home_tertiary"
+      ],
+      "entry": "loss",
+      "exit": "retry_or_home"
+    },
+    {
+      "id": "home",
+      "goal": "resume_immediately",
+      "elements": [
+        "big_play_button",
+        "world_progress",
+        "hero_card",
+        "gear",
+        "daily_bounty",
+        "settings"
+      ],
+      "entry": "returning_user_or_manual_home",
+      "exit": "play_or_subscreen"
+    },
+    {
+      "id": "world_map",
+      "goal": "communicate_milestones",
+      "elements": [
+        "6_world_nodes",
+        "10_stage_pips_each",
+        "boss_gate",
+        "current_stage_highlight"
+      ],
+      "entry": "home_map",
+      "exit": "stage_select_or_home"
+    },
+    {
+      "id": "heroes",
+      "goal": "choose_distinct_playstyle",
+      "elements": [
+        "character_cards",
+        "unlock_condition",
+        "ability_preview",
+        "equip_primary"
+      ],
+      "entry": "home",
+      "exit": "home"
+    },
+    {
+      "id": "equipment",
+      "goal": "upgrade_without_complexity",
+      "elements": [
+        "two_slots",
+        "owned_gear",
+        "stats_delta",
+        "upgrade_cost"
+      ],
+      "entry": "home",
+      "exit": "home"
+    },
+    {
+      "id": "daily_bounty",
+      "goal": "three_quick_plays",
+      "elements": [
+        "three_stage_cards",
+        "one_daily_reward",
+        "no_streak_pressure"
+      ],
+      "entry": "home",
+      "exit": "battle_or_home"
+    },
+    {
+      "id": "settings",
+      "goal": "simple_control",
+      "elements": [
+        "sound_sliders",
+        "reduced_motion",
+        "contrast",
+        "privacy_link",
+        "reset_confirm"
+      ],
+      "entry": "pause_or_home",
+      "exit": "previous"
+    }
+  ],
+  "visual": {
+    "style": "polished_2d_vector_pixel_hybrid_crisp_soft_edges_not_generic_mobile_gradient",
+    "tone": "whimsical_adventurous_satisfying_not_grim",
+    "palette": {
+      "ink": "#172233",
+      "background": "#101827",
+      "surface": "#243247",
+      "surface_light": "#354962",
+      "cream": "#FFF3D6",
+      "gold": "#FFC861",
+      "mint": "#69D6AC",
+      "coral": "#FF7E7B",
+      "magic": "#B79BFF",
+      "ice": "#7ED9EB"
+    },
+    "ui": {
+      "font_heading": "bold_rounded_sans",
+      "font_body": "high_legibility_sans",
+      "minimum_mobile_tap_target_px": 44,
+      "main_cta": "gold_fill_dark_text",
+      "health": "mint_bar_with_shape",
+      "damage": "coral_pop",
+      "reduced_motion_supported": true
+    },
+    "effects": [
+      "subtle_hit_squash",
+      "number_pop_110ms",
+      "short_ball_trail",
+      "screen_shake_under_2px_on_large_hit",
+      "boss_hit_freeze_45ms",
+      "combo_audio_pitch_up_to_fifth_hit"
+    ],
+    "audio": [
+      "bright_wooden_hits",
+      "crystalline_chimes",
+      "bass_for_explosion",
+      "short_win_stinger_under_1sec"
+    ],
+    "performance": {
+      "initial_download_target_mb": 8,
+      "initial_render_target_s_on_typical_wifi": 4,
+      "steady_fps_target_mobile": 60,
+      "minimum_acceptable_fps_mobile": 30,
+      "sprite_pooling": true,
+      "low_quality_mode": true
+    }
+  },
+  "analytics": {
+    "events": [
+      "game_loaded",
+      "first_frame",
+      "first_shot",
+      "stage_started",
+      "volley_launched",
+      "volley_finished",
+      "stage_cleared",
+      "stage_failed",
+      "next_stage_clicked",
+      "upgrade_offered",
+      "upgrade_selected",
+      "hero_unlocked",
+      "gear_upgraded",
+      "ad_offered",
+      "ad_started",
+      "ad_completed",
+      "ad_failed",
+      "session_end"
+    ],
+    "properties": [
+      "platform",
+      "session_id",
+      "level_id",
+      "world_id",
+      "elapsed_seconds",
+      "volley_count",
+      "hero_id",
+      "balls_fired",
+      "bricks_destroyed",
+      "failure_reason",
+      "ad_placement",
+      "is_returning_user"
+    ],
+    "funnels": [
+      "loaded_to_first_shot",
+      "first_shot_to_stage_3",
+      "stage_1_to_stage_10",
+      "world_1_to_world_2",
+      "eligible_rewarded_offer_to_completed_ad"
+    ],
+    "test_targets_hypotheses_not_guarantees": {
+      "first_shot_under_15s_pct": 80,
+      "stage_1_completion_pct": 85,
+      "stage_3_reach_pct": 55,
+      "median_session_minutes": 6,
+      "stage_1_median_completion_seconds": 60,
+      "returning_D1_pct": 10
+    }
+  },
+  "technical": {
+    "engine_options": [
+      "Phaser_3",
+      "PixiJS_plus_custom_physics"
+    ],
+    "recommended": "Phaser_3",
+    "stack": [
+      "TypeScript",
+      "Vite",
+      "static_host",
+      "localStorage_or_IndexedDB",
+      "platform_cloud_adapter_optional"
+    ],
+    "physics": [
+      "fixed_timestep_60hz",
+      "swept_circle_AABB_to_prevent_tunneling",
+      "collision_event_queue",
+      "deterministic_seed_per_level",
+      "caps_on_projectiles_particles"
+    ],
+    "data_driven": "load_levels_and_balance_from_this_json",
+    "save": {
+      "version": 1,
+      "atomic_write_pattern": "commit_only_after_level_result_or_purchase",
+      "cloud_sync": "read_and_merge_before_first_write_avoid_empty_overwrite",
+      "offline": "playable_with_local_persistence"
+    },
+    "experiments": [
+      "first_aim_hint_on_off",
+      "stage_clear_auto_next_vs_button",
+      "upgrade_card_after_3_vs_after_4",
+      "rewards_1x_vs_1_2x"
+    ],
+    "launch_scope": "W1_to_W3_30_stages_and_2_heroes"
+  },
+  "source_notes": {
+    "verified_platform_policy_urls": [
+      "https://docs.crazygames.com/requirements/ads/",
+      "https://docs.crazygames.com/resources/ad-monetization-guide/",
+      "https://docs.crazygames.com/resources/midgame-ads-pacing/",
+      "https://docs.crazygames.com/requirements/intro/"
+    ],
+    "disclaimer": "Numbers are initial design proposals pending playtest; CrazyGames SDK and policies should be rechecked before submission."
+  }
+}

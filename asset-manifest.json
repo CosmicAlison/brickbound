@@ -1,0 +1,478 @@
+{
+  "version": "0.3.0",
+  "production_status": "candidate \u2014 layout and alpha should be reviewed",
+  "assets": [
+    {
+      "id": "hero/pyromancer/idle",
+      "path": "/assets/hero/pyromancer/idle.webp",
+      "width": 330,
+      "height": 368,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "hero/pyromancer/aim",
+      "path": "/assets/hero/pyromancer/aim.webp",
+      "width": 330,
+      "height": 305,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "hero/pyromancer/cast",
+      "path": "/assets/hero/pyromancer/cast.webp",
+      "width": 330,
+      "height": 333,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "hero/pyromancer/hurt",
+      "path": "/assets/hero/pyromancer/hurt.webp",
+      "width": 330,
+      "height": 386,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "hero/pyromancer/victory",
+      "path": "/assets/hero/pyromancer/victory.webp",
+      "width": 288,
+      "height": 390,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "hero/pyromancer/defeat",
+      "path": "/assets/hero/pyromancer/defeat.webp",
+      "width": 330,
+      "height": 157,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "enemies/skeleton",
+      "path": "/assets/enemies/skeleton.webp",
+      "width": 320,
+      "height": 260,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "enemies/slime",
+      "path": "/assets/enemies/slime.webp",
+      "width": 320,
+      "height": 192,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "enemies/wisp",
+      "path": "/assets/enemies/wisp.webp",
+      "width": 240,
+      "height": 320,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "enemies/guardian",
+      "path": "/assets/enemies/guardian.webp",
+      "width": 320,
+      "height": 219,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "enemies/spore",
+      "path": "/assets/enemies/spore.webp",
+      "width": 320,
+      "height": 265,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "enemies/bat",
+      "path": "/assets/enemies/bat.webp",
+      "width": 320,
+      "height": 163,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bosses/bone_king",
+      "path": "/assets/bosses/bone_king.webp",
+      "width": 460,
+      "height": 372,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bosses/crystal_titan",
+      "path": "/assets/bosses/crystal_titan.webp",
+      "width": 460,
+      "height": 360,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bosses/spore_queen",
+      "path": "/assets/bosses/spore_queen.webp",
+      "width": 460,
+      "height": 387,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bosses/clockwork_dragon",
+      "path": "/assets/bosses/clockwork_dragon.webp",
+      "width": 460,
+      "height": 359,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bricks/stone",
+      "path": "/assets/bricks/stone.webp",
+      "width": 176,
+      "height": 133,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bricks/armor",
+      "path": "/assets/bricks/armor.webp",
+      "width": 209,
+      "height": 127,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bricks/mirror",
+      "path": "/assets/bricks/mirror.webp",
+      "width": 209,
+      "height": 127,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bricks/ember",
+      "path": "/assets/bricks/ember.webp",
+      "width": 189,
+      "height": 127,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bricks/crystal",
+      "path": "/assets/bricks/crystal.webp",
+      "width": 190,
+      "height": 140,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bricks/curse",
+      "path": "/assets/bricks/curse.webp",
+      "width": 188,
+      "height": 128,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bricks/portal",
+      "path": "/assets/bricks/portal.webp",
+      "width": 209,
+      "height": 129,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "bricks/treasure",
+      "path": "/assets/bricks/treasure.webp",
+      "width": 175,
+      "height": 135,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "props/torch",
+      "path": "/assets/props/torch.webp",
+      "width": 200,
+      "height": 320,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "props/banner",
+      "path": "/assets/props/banner.webp",
+      "width": 239,
+      "height": 320,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "props/crystal_cluster",
+      "path": "/assets/props/crystal_cluster.webp",
+      "width": 270,
+      "height": 266,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "props/arch",
+      "path": "/assets/props/arch.webp",
+      "width": 270,
+      "height": 225,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "props/rune_pedestal",
+      "path": "/assets/props/rune_pedestal.webp",
+      "width": 270,
+      "height": 261,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "props/spikes",
+      "path": "/assets/props/spikes.webp",
+      "width": 267,
+      "height": 210,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "balls/neutral",
+      "path": "/assets/balls/neutral.webp",
+      "width": 95,
+      "height": 100,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "balls/fire",
+      "path": "/assets/balls/fire.webp",
+      "width": 100,
+      "height": 92,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "balls/ice",
+      "path": "/assets/balls/ice.webp",
+      "width": 99,
+      "height": 100,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "balls/storm",
+      "path": "/assets/balls/storm.webp",
+      "width": 100,
+      "height": 100,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "balls/poison",
+      "path": "/assets/balls/poison.webp",
+      "width": 100,
+      "height": 92,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "balls/arcane",
+      "path": "/assets/balls/arcane.webp",
+      "width": 95,
+      "height": 100,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "effects/fire_burst",
+      "path": "/assets/effects/fire_burst.webp",
+      "width": 170,
+      "height": 200,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "effects/ice_burst",
+      "path": "/assets/effects/ice_burst.webp",
+      "width": 198,
+      "height": 200,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "effects/storm_burst",
+      "path": "/assets/effects/storm_burst.webp",
+      "width": 187,
+      "height": 200,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "effects/poison_burst",
+      "path": "/assets/effects/poison_burst.webp",
+      "width": 211,
+      "height": 200,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "effects/arcane_burst",
+      "path": "/assets/effects/arcane_burst.webp",
+      "width": 196,
+      "height": 200,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "effects/impact",
+      "path": "/assets/effects/impact.webp",
+      "width": 187,
+      "height": 200,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "arenas/woods",
+      "path": "/assets/arenas/woods.webp",
+      "width": 1279,
+      "height": 720,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "arenas/quarry",
+      "path": "/assets/arenas/quarry.webp",
+      "width": 1279,
+      "height": 720,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "arenas/frost",
+      "path": "/assets/arenas/frost.webp",
+      "width": 1279,
+      "height": 720,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "arenas/astral",
+      "path": "/assets/arenas/astral.webp",
+      "width": 1279,
+      "height": 720,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/panel",
+      "path": "/assets/ui/panel.webp",
+      "width": 450,
+      "height": 211,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/wide_panel",
+      "path": "/assets/ui/wide_panel.webp",
+      "width": 378,
+      "height": 250,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/card",
+      "path": "/assets/ui/card.webp",
+      "width": 177,
+      "height": 250,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/primary_button",
+      "path": "/assets/ui/primary_button.webp",
+      "width": 450,
+      "height": 124,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/secondary_button",
+      "path": "/assets/ui/secondary_button.webp",
+      "width": 422,
+      "height": 156,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/chest",
+      "path": "/assets/ui/chest.webp",
+      "width": 285,
+      "height": 228,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/coin",
+      "path": "/assets/ui/coin.webp",
+      "width": 170,
+      "height": 180,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/gem",
+      "path": "/assets/ui/gem.webp",
+      "width": 197,
+      "height": 189,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/health",
+      "path": "/assets/ui/health.webp",
+      "width": 450,
+      "height": 120,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/pause",
+      "path": "/assets/ui/pause.webp",
+      "width": 175,
+      "height": 195,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/settings",
+      "path": "/assets/ui/settings.webp",
+      "width": 192,
+      "height": 195,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/play",
+      "path": "/assets/ui/play.webp",
+      "width": 200,
+      "height": 195,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    },
+    {
+      "id": "ui/battle_card",
+      "path": "/assets/ui/battle_card.webp",
+      "width": 227,
+      "height": 218,
+      "source": "generated concept raster sheet",
+      "status": "candidate_requires_visual_review"
+    }
+  ]
+}
