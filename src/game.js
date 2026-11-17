@@ -1,4 +1,5 @@
 import levelsData from '../levels.json' with { type: 'json' };
+import { worldOneLevel, bossPhase } from './world1.js';
 
 const $ = (q, parent = document) => parent.querySelector(q);
 const view = $('#view');
@@ -95,6 +96,11 @@ let toastTimer = null;
 try {
   Object.assign(state, JSON.parse(localStorage.getItem('brickbound-save-v2')) || {});
 } catch {}
+
+state.permanentBoosts = { ...DEFAULT_STATE.permanentBoosts, ...(state.permanentBoosts || {}) };
+state.gear = { ...DEFAULT_STATE.gear, ...(state.gear || {}) };
+state.upgrades = Array.isArray(state.upgrades) ? state.upgrades : [];
+state.cleared = Array.isArray(state.cleared) ? state.cleared : [];
 
 try {
   Object.assign(settings, JSON.parse(localStorage.getItem('brickbound-settings-v2')) || {});
@@ -530,6 +536,7 @@ function combat() {
   stop();
   const lv = level(state.stage);
   const world = worldOfStage(state.stage);
+  const authored = world.id === 'W1' ? worldOneLevel(lv.stage_index) : null;
   const isBoss = lv.kind === 'boss' || state.stage % 10 === 0;
   view.innerHTML = `
     <article class="screen combat-screen">
@@ -550,8 +557,9 @@ function combat() {
           <canvas id="battle" width="420" height="610" aria-label="Combat board. Drag to aim and release to launch."></canvas>
           <div class="combat-overlay-top">
             <div class="intent-card"><span class="eyebrow">Enemy Intent</span><strong id="intent-label">Reading room…</strong></div>
-            <div class="mission-card"><span class="eyebrow">Lesson</span><strong>${TEACH_COPY[lv.teaches] || 'Defeat all enemies.'}</strong></div>
+            <div class="mission-card"><span class="eyebrow">Lesson</span><strong>${authored?.lesson || TEACH_COPY[lv.teaches] || 'Defeat all enemies.'}</strong></div>
           </div>
+          ${isBoss && world.id === 'W1' ? '<div class="boss-indicator" id="boss-indicator">ROOTHEART · PHASE 1 / 3 · ROOT SHIELD ACTIVE</div>' : ''}
           <div class="hint" id="combat-hint">Drag to aim · Release to launch</div>
           <div class="combat-bottom">
             <button id="fast-forward" class="button secondary" style="display:none">Fast Forward</button>
@@ -590,6 +598,11 @@ class Battle {
   constructor(lv, world, isBoss) {
     this.lv = lv;
     this.world = world;
+    this.authored = world.id === 'W1' ? worldOneLevel(lv.stage_index) : null;
+    this.rootheart = world.id === 'W1' && isBoss;
+    this.phase = 1;
+    this.winScheduled = false;
+    this.loseScheduled = false;
     this.isBoss = isBoss;
     this.canvas = $('#battle');
     this.ctx = this.canvas.getContext('2d');
@@ -620,6 +633,7 @@ class Battle {
     this.hitCounter = 0;
     this.breakCounter = 0;
     this.enemyIntent = null;
+    this.activeHitCooldown = new WeakMap();
     this.usedFreeze = false;
     this.usedPhoenix = 0;
     this.healsThisRoom = 0;
@@ -711,6 +725,13 @@ class Battle {
   }
 
   generateBlocks() {
+    if (this.authored) {
+      this.blocks = this.authored.blocks.map(([c, r, kind, hp], index) => ({
+        id:index + 1, c, r, x:24 + c * 62, y:140 + r * 40, w:56, h:34,
+        kind, hp, maxHp:hp, burning:false
+      }));
+      return;
+    }
     const cols = this.lv.layout.columns || 6;
     const rows = this.lv.layout.rows || 5;
     const brickW = 56;
@@ -804,7 +825,7 @@ class Battle {
         const w = isBossSprite ? 150 : 86;
         const h = isBossSprite ? 108 : 74;
         const x = total === 1 ? 135 : 60 + index * 115;
-        const hp = Math.round((isBossSprite ? 32 : 7) * (def.hp_multiplier || 1) + (this.lv.stage_index * 0.3));
+        const hp = this.authored ? this.authored.enemyHp : Math.round((isBossSprite ? 32 : 7) * (def.hp_multiplier || 1) + (this.lv.stage_index * 0.3));
         this.enemies.push({
           x,
           y: isBossSprite ? 42 : 58,
@@ -823,9 +844,27 @@ class Battle {
   updateIntentLabel() {
     const label = $('#intent-label');
     if (label) label.textContent = this.enemyIntent?.label || 'No intent';
+    const indicator = $('#boss-indicator');
+    if (indicator && this.rootheart) {
+      const roots = this.blocks.filter(b => b.kind === 'root').length;
+      indicator.textContent = `ROOTHEART · PHASE ${this.phase} / 3 · ${roots ? `${roots} ROOTS SHIELDING` : 'HEART EXPOSED'}`;
+      indicator.classList.toggle('exposed', roots === 0);
+    }
   }
 
   rollIntent() {
+    if (this.rootheart) {
+      const ratio = this.enemies[0]?.hp / this.enemies[0]?.maxHp ?? 1;
+      this.phase = bossPhase(ratio);
+      const roots = this.blocks.filter(b => b.kind === 'root').length;
+      const options = this.phase === 1
+        ? [{type:'fortify',label:'ROOTHEART · Regrow 1 root',value:1},{type:'strike',label:'ROOTHEART · Thorn lash (2 HP)',value:2}]
+        : this.phase === 2
+        ? [{type:'strike',label:'ROOTHEART · Double lash (3 HP)',value:3},{type:'fortify',label:'ROOTHEART · Regrow 2 roots',value:2}]
+        : [{type:'strike',label:'ROOTHEART · Heart burst (4 HP)',value:4},{type:'push',label:'ROOTHEART · Root surge',value:24}];
+      const selected = options[(this.turn - 1) % options.length];
+      return selected.type === 'fortify' && roots >= 4 ? {type:'strike',label:'ROOTHEART · Thorn lash (2 HP)',value:2}:selected;
+    }
     const mechanic = this.world.mechanic;
     const table = {
       bloom: [
@@ -883,6 +922,11 @@ class Battle {
     }
     const intent = this.enemyIntent;
     if (!intent) return;
+    if (this.authored && intent.type === 'strike' && this.authored.enemyDamage === 0) return;
+    if (this.rootheart && intent.type === 'fortify') {
+      this.regrowRoots(intent.value);
+      return;
+    }
     switch (intent.type) {
       case 'strike':
         this.applyPlayerDamage(intent.value, `-${intent.value}`);
@@ -914,6 +958,17 @@ class Battle {
     }
   }
 
+  regrowRoots(amount) {
+    const anchors = [[1,2],[4,2],[1,3],[4,3]];
+    const occupied = new Set(this.blocks.map(b => `${b.c},${b.r}`));
+    for (const [c,r] of anchors) {
+      if (amount <= 0) break;
+      if (occupied.has(`${c},${r}`)) continue;
+      this.blocks.push({id:Math.random(),c,r,x:24+c*62,y:140+r*40,w:56,h:34,kind:'root',hp:2+this.phase,maxHp:2+this.phase,burning:false});
+      amount--;
+    }
+  }
+
   spawnBlocks(amount, pool) {
     const kinds = Array.isArray(pool) ? pool : ['stone'];
     const occupied = new Set(this.blocks.map((b) => `${b.c}-${b.r}`));
@@ -942,8 +997,7 @@ class Battle {
   }
 
   shiftBoard() {
-    this.direction *= -1;
-    this.blocks.forEach((b) => {
+    this.direction *= -1;    this.blocks.forEach((b) => {
       b.x = Math.max(24, Math.min(24 + 5 * 62, b.x + this.direction * 18));
     });
   }
@@ -997,7 +1051,8 @@ class Battle {
 
     if (hasUpgrade('shock') && this.hitCounter % 6 === 0) {
       this.hitNeighbors(block, 1, 72);
-      const enemy = this.enemies[0];      if (enemy) enemy.hp -= 1;
+      const enemy = this.enemies[0];
+      if (enemy) enemy.hp -= 1;
     }
 
     if (block.kind === 'cursed') this.applyPlayerDamage(1, 'Curse');
@@ -1021,8 +1076,21 @@ class Battle {
 
   handleEnemyHit(ball, enemy) {
     let damage = this.baseDamage;
+    if (this.rootheart && enemy.boss && this.blocks.some(b => b.kind === 'root')) {
+      damage = Math.max(.5, damage * .2);
+      if (this.hitCounter % 8 === 0) this.effects.push({ x:enemy.x+enemy.w/2,y:enemy.y-18,text:'ROOT SHIELD',life:.8,color:'#afc8aa' });
+    }
     if (hasUpgrade('crit') && Math.random() < 0.05 * countUpgrade('crit')) damage *= 2;
     enemy.hp -= damage;
+    if (this.rootheart && enemy.boss) {
+      const next = bossPhase(Math.max(0,enemy.hp)/enemy.maxHp);
+      if (next > this.phase) {
+        this.phase = next;
+        this.effects.push({x:210,y:88,text:`PHASE ${next}`,life:1.3,color:'#f0c99c'});
+        this.regrowRoots(next===2 ? 2 : 4);
+      }
+      this.updateIntentLabel();
+    }
     if (hasUpgrade('frost') && !this.usedFreeze) {
       this.usedFreeze = true;
       this.enemyIntent = { type: 'none', label: 'Frozen this turn', value: 0 };
@@ -1051,6 +1119,7 @@ class Battle {
       const surviving = [];
       for (const ball of this.balls) {
         ball.life += dt;
+        ball.hitReset=Math.max(0,(ball.hitReset||0)-dt);
         let alive = true;
         const steps = Math.max(1, Math.ceil(dt / 0.008));
         const sdt = dt / steps;
@@ -1079,8 +1148,9 @@ class Battle {
           }
 
           for (const enemy of this.enemies) {
-            if (enemy.hp > 0 && ball.x >= enemy.x && ball.x <= enemy.x + enemy.w && ball.y >= enemy.y && ball.y <= enemy.y + enemy.h) {
+            if (enemy.hp > 0 && (!ball.lastEnemyHit || ball.lastEnemyHit !== enemy || ball.hitReset <= 0) && ball.x >= enemy.x && ball.x <= enemy.x + enemy.w && ball.y >= enemy.y && ball.y <= enemy.y + enemy.h) {
               this.handleEnemyHit(ball, enemy);
+              ball.lastEnemyHit=enemy;ball.hitReset=.09;
               break;
             }
           }
@@ -1091,7 +1161,8 @@ class Battle {
       this.enemies = this.enemies.filter((e) => e.hp > 0);
       this.effects = this.effects.filter((e) => (e.life -= dt) > 0);
 
-      if (!this.enemies.length) {
+      if (!this.enemies.length && !this.winScheduled) {
+        this.winScheduled = true;
         this.disposed = true;
         setTimeout(victory, 450);
         return;
@@ -1112,7 +1183,8 @@ class Battle {
     this.launchX = this.firstLanding ?? this.launchX;
     this.angle = -Math.PI / 2;
     this.resolveIntent();
-    if (this.hp <= 0) {
+    if (this.hp <= 0 && !this.loseScheduled) {
+      this.loseScheduled = true;
       this.disposed = true;
       setTimeout(defeat, 450);
       return;
@@ -1146,13 +1218,16 @@ class Battle {
 
   drawBricks() {
     const ctx = this.ctx;
-    const typeMap = { stone: 'stone', cracked: 'stone', explosive: 'ember', lava: 'ember', metal: 'armor', bone: 'stone', cursed: 'curse', mirror: 'mirror', ice: 'crystal', crystal: 'crystal', conveyor: 'armor', portal: 'portal' };
+    const typeMap = { root:'ember', stone: 'stone', cracked: 'stone', explosive: 'ember', lava: 'ember', metal: 'armor', bone: 'stone', cursed: 'curse', mirror: 'mirror', ice: 'crystal', crystal: 'crystal', conveyor: 'armor', portal: 'portal' };
     for (const block of this.blocks) {
       this.sprite(`bricks/${typeMap[block.kind] || 'stone'}`, block.x, block.y, block.w, block.h);
       ctx.fillStyle = '#f7e4c0';
       ctx.font = 'bold 15px Trebuchet MS';
       ctx.textAlign = 'center';
       ctx.fillText(String(Math.max(0, Math.ceil(block.hp))), block.x + block.w / 2, block.y + 22);
+      if (block.kind === 'root') {
+        ctx.strokeStyle='#9bcd99';ctx.lineWidth=3;ctx.strokeRect(block.x+2,block.y+2,block.w-4,block.h-4);
+      }
       if (block.burning) {
         ctx.fillStyle = '#efaa75';
         ctx.fillRect(block.x + 4, block.y + 4, 10, 10);
