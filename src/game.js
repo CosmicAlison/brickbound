@@ -1,5 +1,6 @@
 import levelsData from '../levels.json' with { type: 'json' };
 import { worldOneLevel, bossPhase } from './world1.js';
+import { computeCanvasResolution } from './render-scale.js';
 import { isRoomCleared } from './combat-rules.js';
 
 const $ = (q, parent = document) => parent.querySelector(q);
@@ -609,6 +610,14 @@ class Battle {
     this.ctx = this.canvas.getContext('2d');
     this.W = 420;
     this.H = 610;
+    this.renderScaleX = 1;
+    this.renderScaleY = 1;
+    this.resizeCanvas = () => this.syncCanvasResolution();
+    this.resizeObserver = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(this.resizeCanvas) : null;
+    this.resizeObserver?.observe(this.canvas);
+    window.addEventListener('resize', this.resizeCanvas);
+    window.visualViewport?.addEventListener('resize', this.resizeCanvas);
+    this.syncCanvasResolution();
     this.blocks = [];
     this.enemies = [];
     this.balls = [];
@@ -685,8 +694,33 @@ class Battle {
     window.addEventListener('pointerup', this.up);
   }
 
+  syncCanvasResolution() {
+    if (this.disposed || !this.canvas) return;
+    const rect = this.canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const resolution = computeCanvasResolution({
+      cssWidth: rect.width,
+      cssHeight: rect.height,
+      logicalWidth: this.W,
+      logicalHeight: this.H,
+      devicePixelRatio: window.devicePixelRatio || 1
+    });
+    if (this.canvas.width !== resolution.width || this.canvas.height !== resolution.height) {
+      this.canvas.width = resolution.width;
+      this.canvas.height = resolution.height;
+    }
+    this.renderScaleX = resolution.scaleX;
+    this.renderScaleY = resolution.scaleY;
+    this.ctx.setTransform(this.renderScaleX, 0, 0, this.renderScaleY, 0, 0);
+    this.ctx.imageSmoothingEnabled = true;
+    this.ctx.imageSmoothingQuality = 'high';
+  }
+
   dispose() {
     this.disposed = true;
+    this.resizeObserver?.disconnect();
+    window.removeEventListener('resize', this.resizeCanvas);
+    window.visualViewport?.removeEventListener('resize', this.resizeCanvas);
     cancelAnimationFrame(this.raf);
     this.canvas?.removeEventListener('pointerdown', this.down);
     this.canvas?.removeEventListener('pointermove', this.move);
