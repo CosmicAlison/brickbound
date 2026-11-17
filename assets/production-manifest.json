@@ -1,0 +1,1328 @@
+{
+  "schema_version": "1.0",
+  "game": "BRICKBOUND: Dungeon Volley",
+  "scope": "full launch art inventory (not complete generated art)",
+  "reference_sheets": [
+    "brickbound_dungeon_asset_compendium.png",
+    "brickbound_dungeon_volley_expansion_sheet.png"
+  ],
+  "requirements": {
+    "palette_document": "docs/art-direction.md",
+    "desktop_reference": [
+      1280,
+      720
+    ],
+    "mobile_reference": [
+      360,
+      640
+    ],
+    "atlas_padding": 4,
+    "texture_edge_extrude": 2,
+    "asset_source_license_required": true
+  },
+  "assets": [
+    {
+      "id": "hero/pyromancer",
+      "master": "assets/production/hero/pyromancer.svg",
+      "export": "public/assets/hero/pyromancer.webp",
+      "canvas": [
+        256,
+        320
+      ],
+      "pivot": [
+        128,
+        300
+      ],
+      "states": [
+        "idle:6",
+        "aim:4",
+        "cast:6",
+        "hurt:3",
+        "victory:6",
+        "defeat:4"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "enemy/skeleton",
+      "master": "assets/production/enemy/skeleton.svg",
+      "export": "public/assets/enemy/skeleton.webp",
+      "canvas": [
+        192,
+        160
+      ],
+      "pivot": [
+        96,
+        148
+      ],
+      "states": [
+        "idle:4",
+        "windup:3",
+        "attack:5",
+        "hurt:2",
+        "death:5"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "enemy/slime",
+      "master": "assets/production/enemy/slime.svg",
+      "export": "public/assets/enemy/slime.webp",
+      "canvas": [
+        192,
+        160
+      ],
+      "pivot": [
+        96,
+        148
+      ],
+      "states": [
+        "idle:4",
+        "windup:3",
+        "attack:5",
+        "hurt:2",
+        "death:5"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "enemy/wisp",
+      "master": "assets/production/enemy/wisp.svg",
+      "export": "public/assets/enemy/wisp.webp",
+      "canvas": [
+        192,
+        160
+      ],
+      "pivot": [
+        96,
+        148
+      ],
+      "states": [
+        "idle:4",
+        "windup:3",
+        "attack:5",
+        "hurt:2",
+        "death:5"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "enemy/guardian",
+      "master": "assets/production/enemy/guardian.svg",
+      "export": "public/assets/enemy/guardian.webp",
+      "canvas": [
+        192,
+        160
+      ],
+      "pivot": [
+        96,
+        148
+      ],
+      "states": [
+        "idle:4",
+        "windup:3",
+        "attack:5",
+        "hurt:2",
+        "death:5"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "enemy/spore",
+      "master": "assets/production/enemy/spore.svg",
+      "export": "public/assets/enemy/spore.webp",
+      "canvas": [
+        192,
+        160
+      ],
+      "pivot": [
+        96,
+        148
+      ],
+      "states": [
+        "idle:4",
+        "windup:3",
+        "attack:5",
+        "hurt:2",
+        "death:5"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "enemy/bat",
+      "master": "assets/production/enemy/bat.svg",
+      "export": "public/assets/enemy/bat.webp",
+      "canvas": [
+        192,
+        160
+      ],
+      "pivot": [
+        96,
+        148
+      ],
+      "states": [
+        "idle:4",
+        "windup:3",
+        "attack:5",
+        "hurt:2",
+        "death:5"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "boss/bone_king",
+      "master": "assets/production/boss/bone_king.svg",
+      "export": "public/assets/boss/bone_king.webp",
+      "canvas": [
+        384,
+        320
+      ],
+      "pivot": [
+        192,
+        296
+      ],
+      "states": [
+        "idle:6",
+        "tell:4",
+        "attack:8",
+        "stagger:4",
+        "defeat:10"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "boss/crystal_titan",
+      "master": "assets/production/boss/crystal_titan.svg",
+      "export": "public/assets/boss/crystal_titan.webp",
+      "canvas": [
+        384,
+        320
+      ],
+      "pivot": [
+        192,
+        296
+      ],
+      "states": [
+        "idle:6",
+        "tell:4",
+        "attack:8",
+        "stagger:4",
+        "defeat:10"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "boss/spore_queen",
+      "master": "assets/production/boss/spore_queen.svg",
+      "export": "public/assets/boss/spore_queen.webp",
+      "canvas": [
+        384,
+        320
+      ],
+      "pivot": [
+        192,
+        296
+      ],
+      "states": [
+        "idle:6",
+        "tell:4",
+        "attack:8",
+        "stagger:4",
+        "defeat:10"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "boss/clockwork_dragon",
+      "master": "assets/production/boss/clockwork_dragon.svg",
+      "export": "public/assets/boss/clockwork_dragon.webp",
+      "canvas": [
+        384,
+        320
+      ],
+      "pivot": [
+        192,
+        296
+      ],
+      "states": [
+        "idle:6",
+        "tell:4",
+        "attack:8",
+        "stagger:4",
+        "defeat:10"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "brick/stone",
+      "master": "assets/production/brick/stone.svg",
+      "export": "public/assets/brick/stone.webp",
+      "canvas": [
+        192,
+        104
+      ],
+      "pivot": [
+        96,
+        52
+      ],
+      "states": [
+        "intact:1",
+        "cracked:1",
+        "critical:1",
+        "break:6"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "brick/armor",
+      "master": "assets/production/brick/armor.svg",
+      "export": "public/assets/brick/armor.webp",
+      "canvas": [
+        192,
+        104
+      ],
+      "pivot": [
+        96,
+        52
+      ],
+      "states": [
+        "intact:1",
+        "cracked:1",
+        "critical:1",
+        "break:6"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "brick/mirror",
+      "master": "assets/production/brick/mirror.svg",
+      "export": "public/assets/brick/mirror.webp",
+      "canvas": [
+        192,
+        104
+      ],
+      "pivot": [
+        96,
+        52
+      ],
+      "states": [
+        "intact:1",
+        "cracked:1",
+        "critical:1",
+        "break:6"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "brick/ember",
+      "master": "assets/production/brick/ember.svg",
+      "export": "public/assets/brick/ember.webp",
+      "canvas": [
+        192,
+        104
+      ],
+      "pivot": [
+        96,
+        52
+      ],
+      "states": [
+        "intact:1",
+        "cracked:1",
+        "critical:1",
+        "break:6"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "brick/crystal",
+      "master": "assets/production/brick/crystal.svg",
+      "export": "public/assets/brick/crystal.webp",
+      "canvas": [
+        192,
+        104
+      ],
+      "pivot": [
+        96,
+        52
+      ],
+      "states": [
+        "intact:1",
+        "cracked:1",
+        "critical:1",
+        "break:6"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "brick/curse",
+      "master": "assets/production/brick/curse.svg",
+      "export": "public/assets/brick/curse.webp",
+      "canvas": [
+        192,
+        104
+      ],
+      "pivot": [
+        96,
+        52
+      ],
+      "states": [
+        "intact:1",
+        "cracked:1",
+        "critical:1",
+        "break:6"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "brick/portal",
+      "master": "assets/production/brick/portal.svg",
+      "export": "public/assets/brick/portal.webp",
+      "canvas": [
+        192,
+        104
+      ],
+      "pivot": [
+        96,
+        52
+      ],
+      "states": [
+        "intact:1",
+        "cracked:1",
+        "critical:1",
+        "break:6"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "brick/treasure",
+      "master": "assets/production/brick/treasure.svg",
+      "export": "public/assets/brick/treasure.webp",
+      "canvas": [
+        192,
+        104
+      ],
+      "pivot": [
+        96,
+        52
+      ],
+      "states": [
+        "intact:1",
+        "cracked:1",
+        "critical:1",
+        "break:6"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ball/neutral",
+      "master": "assets/production/ball/neutral.svg",
+      "export": "public/assets/ball/neutral.webp",
+      "canvas": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "states": [
+        "idle:1",
+        "impact:5",
+        "trail:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ball/fire",
+      "master": "assets/production/ball/fire.svg",
+      "export": "public/assets/ball/fire.webp",
+      "canvas": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "states": [
+        "idle:1",
+        "impact:5",
+        "trail:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ball/ice",
+      "master": "assets/production/ball/ice.svg",
+      "export": "public/assets/ball/ice.webp",
+      "canvas": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "states": [
+        "idle:1",
+        "impact:5",
+        "trail:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ball/storm",
+      "master": "assets/production/ball/storm.svg",
+      "export": "public/assets/ball/storm.webp",
+      "canvas": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "states": [
+        "idle:1",
+        "impact:5",
+        "trail:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ball/poison",
+      "master": "assets/production/ball/poison.svg",
+      "export": "public/assets/ball/poison.webp",
+      "canvas": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "states": [
+        "idle:1",
+        "impact:5",
+        "trail:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ball/arcane",
+      "master": "assets/production/ball/arcane.svg",
+      "export": "public/assets/ball/arcane.webp",
+      "canvas": [
+        64,
+        64
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "states": [
+        "idle:1",
+        "impact:5",
+        "trail:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "arena/whispering_woods",
+      "master": "assets/production/arena/whispering_woods.svg",
+      "export": "public/assets/arena/whispering_woods.webp",
+      "canvas": [
+        1280,
+        720
+      ],
+      "pivot": [
+        640,
+        360
+      ],
+      "states": [
+        "far:1",
+        "mid:1",
+        "near:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "arena/ember_quarry",
+      "master": "assets/production/arena/ember_quarry.svg",
+      "export": "public/assets/arena/ember_quarry.webp",
+      "canvas": [
+        1280,
+        720
+      ],
+      "pivot": [
+        640,
+        360
+      ],
+      "states": [
+        "far:1",
+        "mid:1",
+        "near:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "arena/frost_hollow",
+      "master": "assets/production/arena/frost_hollow.svg",
+      "export": "public/assets/arena/frost_hollow.webp",
+      "canvas": [
+        1280,
+        720
+      ],
+      "pivot": [
+        640,
+        360
+      ],
+      "states": [
+        "far:1",
+        "mid:1",
+        "near:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "arena/sunken_archive",
+      "master": "assets/production/arena/sunken_archive.svg",
+      "export": "public/assets/arena/sunken_archive.webp",
+      "canvas": [
+        1280,
+        720
+      ],
+      "pivot": [
+        640,
+        360
+      ],
+      "states": [
+        "far:1",
+        "mid:1",
+        "near:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "arena/spore_garden",
+      "master": "assets/production/arena/spore_garden.svg",
+      "export": "public/assets/arena/spore_garden.webp",
+      "canvas": [
+        1280,
+        720
+      ],
+      "pivot": [
+        640,
+        360
+      ],
+      "states": [
+        "far:1",
+        "mid:1",
+        "near:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "arena/astral_citadel",
+      "master": "assets/production/arena/astral_citadel.svg",
+      "export": "public/assets/arena/astral_citadel.webp",
+      "canvas": [
+        1280,
+        720
+      ],
+      "pivot": [
+        640,
+        360
+      ],
+      "states": [
+        "far:1",
+        "mid:1",
+        "near:1"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/panel",
+      "master": "assets/production/ui/panel.svg",
+      "export": "public/assets/ui/panel.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/primary_button",
+      "master": "assets/production/ui/primary_button.svg",
+      "export": "public/assets/ui/primary_button.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/secondary_button",
+      "master": "assets/production/ui/secondary_button.svg",
+      "export": "public/assets/ui/secondary_button.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/upgrade_card",
+      "master": "assets/production/ui/upgrade_card.svg",
+      "export": "public/assets/ui/upgrade_card.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/health_bar",
+      "master": "assets/production/ui/health_bar.svg",
+      "export": "public/assets/ui/health_bar.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/title_plaque",
+      "master": "assets/production/ui/title_plaque.svg",
+      "export": "public/assets/ui/title_plaque.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/world_node",
+      "master": "assets/production/ui/world_node.svg",
+      "export": "public/assets/ui/world_node.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/reward_chest",
+      "master": "assets/production/ui/reward_chest.svg",
+      "export": "public/assets/ui/reward_chest.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/status_icons",
+      "master": "assets/production/ui/status_icons.svg",
+      "export": "public/assets/ui/status_icons.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    },
+    {
+      "id": "ui/equipment_slots",
+      "master": "assets/production/ui/equipment_slots.svg",
+      "export": "public/assets/ui/equipment_slots.webp",
+      "canvas": null,
+      "pivot": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "pressed",
+        "disabled"
+      ],
+      "source": {
+        "kind": "project_original_redraw",
+        "reference": "2026-11 asset compendium and expansion sheet",
+        "license": "original work"
+      },
+      "status": "planned",
+      "technical_checks_passed": false,
+      "acceptance": [
+        "silhouette_at_native_scale",
+        "alpha_and_edge_QA",
+        "consistent_palette_and_light",
+        "correct_anchor",
+        "browser_runtime_review"
+      ]
+    }
+  ]
+}

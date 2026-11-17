@@ -1,0 +1,320 @@
+{
+  "project": "Brickbound: Dungeon Volley",
+  "version": "0.1.0",
+  "art_direction": "Matte hand-crafted fantasy / desaturated indigo, parchment, sage and copper",
+  "notes": "SVG vector masters; text uses system fonts; convert selected assets to optimized sprite atlases after in-browser visual QA. No external licenses or embedded font files.",
+  "assets": [
+    {
+      "path": "assets/bricks/stone.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 52
+    },
+    {
+      "path": "assets/bricks/armor.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 52
+    },
+    {
+      "path": "assets/bricks/mirror.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 52
+    },
+    {
+      "path": "assets/bricks/ember.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 52
+    },
+    {
+      "path": "assets/bricks/crystal.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 52
+    },
+    {
+      "path": "assets/bricks/curse.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 52
+    },
+    {
+      "path": "assets/bricks/portal.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 52
+    },
+    {
+      "path": "assets/bricks/treasure.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 52
+    },
+    {
+      "path": "assets/balls/neutral.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "assets/balls/fire.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "assets/balls/ice.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "assets/balls/storm.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "assets/balls/poison.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "assets/balls/arcane.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "assets/enemies/skeleton.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 72
+    },
+    {
+      "path": "assets/enemies/slime.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 72
+    },
+    {
+      "path": "assets/enemies/wisp.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 72
+    },
+    {
+      "path": "assets/enemies/guardian.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 72
+    },
+    {
+      "path": "assets/enemies/spore.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 72
+    },
+    {
+      "path": "assets/enemies/bat.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 96,
+      "height": 72
+    },
+    {
+      "path": "assets/bosses/bone_king.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 106,
+      "height": 100
+    },
+    {
+      "path": "assets/bosses/crystal_titan.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 106,
+      "height": 100
+    },
+    {
+      "path": "assets/bosses/spore_queen.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 106,
+      "height": 100
+    },
+    {
+      "path": "assets/bosses/clockwork_dragon.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 106,
+      "height": 100
+    },
+    {
+      "path": "assets/heroes/pyromancer.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 128,
+      "height": 160
+    },
+    {
+      "path": "assets/ui/panel.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 320,
+      "height": 180
+    },
+    {
+      "path": "assets/ui/button-primary.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 216,
+      "height": 64
+    },
+    {
+      "path": "assets/ui/button-secondary.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 216,
+      "height": 64
+    },
+    {
+      "path": "assets/ui/card.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 172,
+      "height": 244
+    },
+    {
+      "path": "assets/ui/health-bar.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 240,
+      "height": 28
+    },
+    {
+      "path": "assets/ui/title-plaque.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 400,
+      "height": 100
+    },
+    {
+      "path": "assets/worlds/whispering_woods.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "path": "assets/worlds/ember_quarry.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "path": "assets/worlds/frost_hollow.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "path": "assets/worlds/sunken_archive.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "path": "assets/worlds/spore_garden.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "path": "assets/worlds/astral_citadel.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "path": "assets/brand/emblem.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 120,
+      "height": 120
+    },
+    {
+      "path": "assets/brand/logo.svg",
+      "kind": "original-code-authored-svg",
+      "status": "concept-ready",
+      "license": "original project asset",
+      "width": 620,
+      "height": 150
+    }
+  ]
+}

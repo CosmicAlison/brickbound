@@ -1,0 +1,110 @@
+{
+  "version": "0.2",
+  "visual_feedback": {
+    "accessibility": {
+      "reduce_shake": true,
+      "reduce_flash": true,
+      "disable_hitstop": true,
+      "flash_limit_per_second": 3
+    },
+    "events": [
+      {
+        "id": "ball_brick_hit",
+        "tier": "small",
+        "particles": [
+          0,
+          4
+        ],
+        "shake": 0,
+        "hit_stop_ms": 0,
+        "scale_overshoot": 1.05,
+        "sfx": "wood_stone_tick"
+      },
+      {
+        "id": "brick_break",
+        "tier": "medium",
+        "particles": [
+          6,
+          10
+        ],
+        "shake": 0.18,
+        "hit_stop_ms": 0,
+        "scale_overshoot": 1.13,
+        "sfx": "crunch"
+      },
+      {
+        "id": "elemental_chain",
+        "tier": "medium",
+        "particles": [
+          7,
+          12
+        ],
+        "shake": 0.25,
+        "hit_stop_ms": 0,
+        "scale_overshoot": 1.12,
+        "sfx": "magic_chime"
+      },
+      {
+        "id": "elite_core_hit",
+        "tier": "large",
+        "particles": [
+          16,
+          24
+        ],
+        "shake": 0.48,
+        "hit_stop_ms": 50,
+        "scale_overshoot": 1.18,
+        "sfx": "heavy_thud"
+      },
+      {
+        "id": "boss_core_break",
+        "tier": "large",
+        "particles": [
+          24,
+          36
+        ],
+        "shake": 0.7,
+        "hit_stop_ms": 100,
+        "scale_overshoot": 1.24,
+        "sfx": "boss_impact"
+      },
+      {
+        "id": "coin_pickup",
+        "tier": "small",
+        "particles": [
+          0,
+          4
+        ],
+        "shake": 0,
+        "hit_stop_ms": 0,
+        "scale_overshoot": 1.14,
+        "sfx": "coin"
+      },
+      {
+        "id": "upgrade_selected",
+        "tier": "medium",
+        "particles": [
+          5,
+          8
+        ],
+        "shake": 0,
+        "hit_stop_ms": 0,
+        "scale_overshoot": 1.07,
+        "sfx": "spell_select"
+      },
+      {
+        "id": "level_won",
+        "tier": "large",
+        "particles": [
+          18,
+          30
+        ],
+        "shake": 0.2,
+        "hit_stop_ms": 0,
+        "scale_overshoot": 1.16,
+        "sfx": "victory_sting"
+      }
+    ],
+    "policy": "Treat numbers as initial tuning targets, not measured values. Never apply hit-stop to every ball hit in multiball volleys; cap simultaneous particles; keep input responsive."
+  }
+}
