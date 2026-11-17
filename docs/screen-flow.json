@@ -1,0 +1,79 @@
+{
+  "version": "0.2",
+  "principles": [
+    "First shot in <=8 seconds (goal)",
+    "No splash-menu requirement for first-time player",
+    "Short procedural tutorial: drag, aim, release",
+    "Ad prompts only at natural breaks, optional rewarded continues",
+    "Safe-area-aware UI, runtime text"
+  ],
+  "flows": {
+    "first_time": [
+      "instant_stage_1",
+      "coachmark_aim",
+      "combat",
+      "victory",
+      "choose_upgrade",
+      "next_stage",
+      "world_map_unlock"
+    ],
+    "returning": [
+      "resume_current_stage",
+      "combat",
+      "victory_or_defeat"
+    ],
+    "win": [
+      "combat",
+      "victory",
+      "optional_reward_multiplier",
+      "next_stage"
+    ],
+    "lose": [
+      "combat",
+      "defeat",
+      "optional_rewarded_revive",
+      "retry_or_world_map"
+    ],
+    "meta": [
+      "world_map",
+      "hero_equipment",
+      "shop",
+      "world_map"
+    ],
+    "overlay": [
+      "combat",
+      "pause",
+      "settings",
+      "resume_combat"
+    ]
+  },
+  "screens": [
+    "instant_stage_1",
+    "title_fallback",
+    "coachmark_aim",
+    "world_map",
+    "combat",
+    "upgrade_choice",
+    "victory",
+    "defeat",
+    "boss_intro",
+    "boss_combat",
+    "hero_equipment",
+    "shop",
+    "daily_reward",
+    "pause",
+    "settings",
+    "confirmation"
+  ],
+  "qa": [
+    "1280x720",
+    "2560x1080",
+    "360x640",
+    "1080x2340",
+    "keyboard/mouse",
+    "touch",
+    "focus and keyboard escape",
+    "200% font scale",
+    "zero color-only state cues"
+  ]
+}
