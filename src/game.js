@@ -342,7 +342,7 @@ function stageBrief(stageNumber) {
           <div><span>Pattern</span><strong>${lv.layout.pattern.replaceAll('_', ' ')}</strong></div>
           <div><span>Soft turn target</span><strong>${lv.turn_limit_soft} turns</strong></div>
           <div><span>Target clear time</span><strong>${lv.target_completion_seconds}s</strong></div>
-          <div><span>Win condition</span><strong>${lv.win_condition.replaceAll('_', ' ')}</strong></div>
+          <div><span>Win condition</span><strong>Defeat enemies and clear all bricks</strong></div>
         </div>
       `)}
       ${card('Rewards', `
@@ -547,7 +547,7 @@ function combat() {
         </div>
         <div class="combat-head-actions">
           <div class="combat-pill">HP <b id="hp">0</b></div>
-          <div class="combat-pill">Balls <b id="volley-count">0</b></div>
+          <div class="combat-pill">Balls <b id="volley-count">0</b></div><div class="combat-pill">Bricks <b id="brick-count">0</b></div>
           <button class="icon-button" id="pause" aria-label="Pause">Ⅱ</button>
         </div>
       </div>
@@ -557,7 +557,7 @@ function combat() {
           <canvas id="battle" width="420" height="610" aria-label="Combat board. Drag to aim and release to launch."></canvas>
           <div class="combat-overlay-top">
             <div class="intent-card"><span class="eyebrow">Enemy Intent</span><strong id="intent-label">Reading room…</strong></div>
-            <div class="mission-card"><span class="eyebrow">Lesson</span><strong>${authored?.lesson || TEACH_COPY[lv.teaches] || 'Defeat all enemies.'}</strong></div>
+            <div class="mission-card"><span class="eyebrow">Clear the room</span><strong>${authored?.lesson || TEACH_COPY[lv.teaches] || 'Clear all bricks and defeat enemies.'}</strong></div>
           </div>
           ${isBoss && world.id === 'W1' ? '<div class="boss-indicator" id="boss-indicator">ROOTHEART · PHASE 1 / 3 · ROOT SHIELD ACTIVE</div>' : ''}
           <div class="hint" id="combat-hint">Drag to aim · Release to launch</div>
@@ -612,6 +612,13 @@ class Battle {
     this.enemies = [];
     this.balls = [];
     this.effects = [];
+    this.particles = [];
+    this.trauma = 0;
+    this.recoil = 0;
+    this.releaseGlow = 0;
+    this.chargeStart = 0;
+    this.charge = 0;
+    this.windup = 0;
     this.turn = 1;
     this.maxHp = 12 + state.permanentBoosts.vitality;
     this.hp = this.maxHp;
@@ -648,6 +655,7 @@ class Battle {
     $('#volley-count').textContent = this.totalBalls;
     this.generateBlocks();
     this.generateEnemies();
+    this.syncObjective();
     this.enemyIntent = this.rollIntent();
     this.updateIntentLabel();
     this.attach();
@@ -657,6 +665,9 @@ class Battle {
     this.down = (e) => {
       if (this.paused || this.active) return;
       this.aiming = true;
+      this.chargeStart = performance.now();
+      this.charge = 0;
+      try { this.canvas.setPointerCapture(e.pointerId); } catch {}
       this.updateAim(e);
     };
     this.move = (e) => {
@@ -665,6 +676,7 @@ class Battle {
     this.up = () => {
       if (!this.aiming) return;
       this.aiming = false;
+      this.charge = Math.min(1, (performance.now() - this.chargeStart) / 700);
       this.fire();
     };
     this.canvas.addEventListener('pointerdown', this.down);
@@ -705,6 +717,11 @@ class Battle {
     this.volleyTime = 0;
     this.firstLanding = null;
     this.speedFactor = 1;
+    this.windup = 0.105 + this.charge * 0.055;
+    this.shotClock = -this.windup;
+    this.recoil = 0.28;
+    this.releaseGlow = 0.52;
+    this.impact(this.launchX, 558, '#ffdca1', settings.reducedMotion ? 0 : 13, 135);
     $('#combat-hint')?.remove();
   }
 
@@ -720,7 +737,8 @@ class Battle {
       wallBounces: 0,
       element: this.getBallElement(),
       pierced: false,
-      prismDone: false
+      prismDone: false,
+      trail: []
     };
   }
 
@@ -1058,6 +1076,8 @@ class Battle {
     if (block.kind === 'cursed') this.applyPlayerDamage(1, 'Curse');
     if (block.kind === 'ice') this.usedFreeze = false;
 
+    this.impact(ball.x,ball.y,block.hp <= 0 ? '#ffcd87' : '#d6bc9b',block.hp <= 0 ? 9 : 4,block.hp <= 0 ? 138 : 73);
+    this.trauma = Math.min(.60, this.trauma + (block.hp <= 0 ? .22 : .065));
     if (block.hp <= 0) {
       this.breakCounter += 1;
       if (['explosive', 'lava'].includes(block.kind) || (block.burning && hasUpgrade('blast'))) this.hitNeighbors(block, hasUpgrade('chain') ? 2 : 1, hasUpgrade('chain') ? 110 : 82);
@@ -1099,11 +1119,51 @@ class Battle {
     if (hasUpgrade('pierce') && !ball.pierced) ball.pierced = true;
     else ball.vy = Math.abs(ball.vy);
     this.effects.push({ x: enemy.x + enemy.w / 2, y: enemy.y, text: `-${Math.round(damage)}`, life: 0.8, color: '#f7c7ae' });
+    this.impact(ball.x,ball.y,'#f5b99a',8,130);
+    this.trauma=Math.min(.65,this.trauma+.23);
+  }
+
+  syncObjective() {
+    const counter = $('#brick-count');
+    if (counter) counter.textContent = this.blocks.filter(b => b.hp > 0).length;
+    if (this.enemies.length === 0) {
+      const intent = $('#intent-label');
+      if (intent) intent.textContent = 'Break the remaining bricks';
+    }
+  }
+
+  roomCleared() {
+    return this.enemies.length === 0 && this.blocks.every(b => b.hp <= 0);
+  }
+
+  impact(x, y, color = '#f7cb91', count = 5, force = 115) {
+    if (settings.reducedMotion) return;
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = force * (.35 + Math.random() * .8);
+      this.particles.push({
+        x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+        life: .17 + Math.random() * .22, maxLife: .38,
+        size: 1.4 + Math.random() * 2.6, color
+      });
+    }
+    if (this.particles.length > 160) this.particles.splice(0, this.particles.length - 160);
   }
 
   update(dt) {
     if (this.paused || this.disposed) return;
-    dt = Math.min(0.04, dt) * this.speedFactor;
+    const realDt = Math.min(0.04, dt);
+    this.trauma = Math.max(0, this.trauma - realDt * 2.6);
+    this.recoil = Math.max(0, this.recoil - realDt);
+    this.releaseGlow = Math.max(0, this.releaseGlow - realDt * 2);
+    for (const p of this.particles) {
+      p.x += p.vx * realDt; p.y += p.vy * realDt;
+      p.vx *= .96; p.vy = p.vy * .96 + 22 * realDt;
+      p.life -= realDt;
+    }
+    this.particles = this.particles.filter(p => p.life > 0);
+    if (this.aiming) this.charge = Math.min(1, (performance.now() - this.chargeStart) / 700);
+    dt = realDt * this.speedFactor;
 
     if (this.active) {
       this.volleyTime += dt;
@@ -1155,13 +1215,19 @@ class Battle {
             }
           }
         }
-        if (alive && ball.life < 11) surviving.push(ball);
+        if (alive && ball.life < 11) {
+          ball.trail.push({x:ball.x,y:ball.y});
+          if (ball.trail.length > 7) ball.trail.shift();
+          surviving.push(ball);
+        }
       }
       this.balls = surviving;
       this.enemies = this.enemies.filter((e) => e.hp > 0);
+      this.blocks = this.blocks.filter((b) => b.hp > 0);
+      this.syncObjective();
       this.effects = this.effects.filter((e) => (e.life -= dt) > 0);
 
-      if (!this.enemies.length && !this.winScheduled) {
+      if (this.roomCleared() && !this.winScheduled) {
         this.winScheduled = true;
         this.disposed = true;
         setTimeout(victory, 450);
@@ -1182,15 +1248,15 @@ class Battle {
     this.turn += 1;
     this.launchX = this.firstLanding ?? this.launchX;
     this.angle = -Math.PI / 2;
-    this.resolveIntent();
+    if (this.enemies.length) this.resolveIntent();
     if (this.hp <= 0 && !this.loseScheduled) {
       this.loseScheduled = true;
       this.disposed = true;
       setTimeout(defeat, 450);
       return;
     }
-    this.pushBoard(12);
-    if (this.blocks.some((b) => b.y > 490)) {
+    if (this.enemies.length) this.pushBoard(12);
+    if (this.enemies.length && this.blocks.some((b) => b.y > 490)) {
       this.applyPlayerDamage(2, 'Crush');
       if (this.hp <= 0) {
         this.disposed = true;
@@ -1198,8 +1264,9 @@ class Battle {
         return;
       }
     }
-    this.enemyIntent = this.rollIntent();
+    this.enemyIntent = this.enemies.length ? this.rollIntent() : {type:'none',label:'Clear remaining bricks',value:0};
     this.updateIntentLabel();
+    this.syncObjective();
     this.speedFactor = 1;
     const ff = $('#fast-forward');
     if (ff) ff.style.display = 'none';
@@ -1249,12 +1316,21 @@ class Battle {
   }
 
   drawPlayer() {
-    this.sprite(`hero/pyromancer/${this.active ? 'cast' : 'aim'}`, 6, 468, 104, 128);
+    this.sprite(`hero/pyromancer/${this.active ? 'cast' : 'aim'}`, 6, 468 + this.recoil * 25, 104, 128);
     const ctx = this.ctx;
     ctx.fillStyle = '#f0d4a5';
     ctx.beginPath();
-    ctx.arc(this.launchX, 558, 9, 0, Math.PI * 2);
-    ctx.fill();
+    const charge = this.aiming ? this.charge : 0;
+    const orbR = 9 + charge * 5 + this.releaseGlow * 11;
+    ctx.shadowColor='#ffcc80';ctx.shadowBlur=10+charge*24+this.releaseGlow*25;
+    ctx.arc(this.launchX, 558, orbR, 0, Math.PI * 2);
+    ctx.fill();ctx.shadowBlur=0;
+    if(this.aiming){
+      ctx.strokeStyle='#f5d29f';ctx.lineWidth=2+charge*2;
+      ctx.beginPath();ctx.arc(this.launchX,558,17+charge*14,-Math.PI*.9,-Math.PI*.9+Math.PI*2*charge);ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(this.launchX-15,574+charge*5);ctx.quadraticCurveTo(this.launchX,590+charge*15,this.launchX+15,574+charge*5);ctx.stroke();
+    }
     ctx.strokeStyle = '#fff4d8';
     ctx.lineWidth = 2;
     ctx.stroke();
@@ -1289,7 +1365,27 @@ class Battle {
 
   drawBallsAndFx() {
     const ctx = this.ctx;
-    for (const ball of this.balls) this.sprite(`balls/${ball.element}`, ball.x - 9, ball.y - 9, 18, 18);
+    for (const ball of this.balls) {
+      if (!settings.reducedMotion && ball.trail.length > 1) {
+        ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+        ctx.shadowColor=ball.element==='fire'?'#ff925e':'#ffdfb2';ctx.shadowBlur=13;
+        for(let i=1;i<ball.trail.length;i++){
+          const a=ball.trail[i-1],b=ball.trail[i];
+          ctx.globalAlpha=.05+.5*i/ball.trail.length;
+          ctx.strokeStyle=ball.element==='fire'?'#ffac68':'#fce0b6';
+          ctx.lineWidth=1+6*i/ball.trail.length;
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        }
+        ctx.restore();
+      }
+      ctx.save();ctx.shadowColor='#ffdeaa';ctx.shadowBlur=settings.reducedMotion?0:17;
+      this.sprite(`balls/${ball.element}`, ball.x - 11, ball.y - 11, 22, 22);ctx.restore();
+    }
+    for(const p of this.particles){
+      ctx.globalAlpha=Math.max(0,p.life/p.maxLife);
+      ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+    }
+    ctx.globalAlpha=1;
     for (const fx of this.effects) {
       ctx.globalAlpha = Math.max(0, fx.life);
       ctx.fillStyle = fx.color || '#f7e4c0';
@@ -1308,18 +1404,26 @@ class Battle {
     ctx.fillText(`Turn ${this.turn}`, 16, 28);
     ctx.fillText(`Shield ${this.shield}`, 16, 48);
     ctx.fillText(`${this.totalBalls} balls`, 302, 588);
+    ctx.fillText(`Bricks ${this.blocks.filter(b=>b.hp>0).length}`, 16, 588);
   }
 
   draw() {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.W, this.H);
-    ctx.fillStyle = '#122131b8';
+    ctx.save();
+    if(this.trauma>0&&!settings.reducedMotion){
+      const amt=this.trauma*this.trauma;
+      const time=performance.now()*.033;
+      ctx.translate(Math.sin(time)*5*amt,Math.cos(time*1.2)*4*amt);
+    }
+    ctx.fillStyle = '#21192ea0';
     ctx.fillRect(0, 0, this.W, this.H);
     this.drawEnemies();
     this.drawBricks();
     this.drawPlayer();
     this.drawBallsAndFx();
     this.drawHudInCanvas();
+    ctx.restore();
   }
 
   start() {
