@@ -1,4 +1,6 @@
 import levelsData from '../levels.json' with { type: 'json' };
+import { worldOneLevel, bossPhase } from './world1.js';
+import { isRoomCleared } from './combat-rules.js';
 
 const $ = (q, parent = document) => parent.querySelector(q);
 const view = $('#view');
@@ -95,6 +97,11 @@ let toastTimer = null;
 try {
   Object.assign(state, JSON.parse(localStorage.getItem('brickbound-save-v2')) || {});
 } catch {}
+
+state.permanentBoosts = { ...DEFAULT_STATE.permanentBoosts, ...(state.permanentBoosts || {}) };
+state.gear = { ...DEFAULT_STATE.gear, ...(state.gear || {}) };
+state.upgrades = Array.isArray(state.upgrades) ? state.upgrades : [];
+state.cleared = Array.isArray(state.cleared) ? state.cleared : [];
 
 try {
   Object.assign(settings, JSON.parse(localStorage.getItem('brickbound-settings-v2')) || {});
@@ -336,7 +343,7 @@ function stageBrief(stageNumber) {
           <div><span>Pattern</span><strong>${lv.layout.pattern.replaceAll('_', ' ')}</strong></div>
           <div><span>Soft turn target</span><strong>${lv.turn_limit_soft} turns</strong></div>
           <div><span>Target clear time</span><strong>${lv.target_completion_seconds}s</strong></div>
-          <div><span>Win condition</span><strong>${lv.win_condition.replaceAll('_', ' ')}</strong></div>
+          <div><span>Win condition</span><strong>Defeat enemies and clear all bricks</strong></div>
         </div>
       `)}
       ${card('Rewards', `
@@ -530,6 +537,7 @@ function combat() {
   stop();
   const lv = level(state.stage);
   const world = worldOfStage(state.stage);
+  const authored = world.id === 'W1' ? worldOneLevel(lv.stage_index) : null;
   const isBoss = lv.kind === 'boss' || state.stage % 10 === 0;
   view.innerHTML = `
     <article class="screen combat-screen">
@@ -540,7 +548,7 @@ function combat() {
         </div>
         <div class="combat-head-actions">
           <div class="combat-pill">HP <b id="hp">0</b></div>
-          <div class="combat-pill">Balls <b id="volley-count">0</b></div>
+          <div class="combat-pill">Balls <b id="volley-count">0</b></div><div class="combat-pill">Bricks <b id="brick-count">0</b></div>
           <button class="icon-button" id="pause" aria-label="Pause">Ⅱ</button>
         </div>
       </div>
@@ -550,8 +558,9 @@ function combat() {
           <canvas id="battle" width="420" height="610" aria-label="Combat board. Drag to aim and release to launch."></canvas>
           <div class="combat-overlay-top">
             <div class="intent-card"><span class="eyebrow">Enemy Intent</span><strong id="intent-label">Reading room…</strong></div>
-            <div class="mission-card"><span class="eyebrow">Lesson</span><strong>${TEACH_COPY[lv.teaches] || 'Defeat all enemies.'}</strong></div>
+            <div class="mission-card"><span class="eyebrow">Clear the room</span><strong>${authored?.lesson || TEACH_COPY[lv.teaches] || 'Clear all bricks and defeat enemies.'}</strong></div>
           </div>
+          ${isBoss && world.id === 'W1' ? '<div class="boss-indicator" id="boss-indicator">ROOTHEART · PHASE 1 / 3 · ROOT SHIELD ACTIVE</div>' : ''}
           <div class="hint" id="combat-hint">Drag to aim · Release to launch</div>
           <div class="combat-bottom">
             <button id="fast-forward" class="button secondary" style="display:none">Fast Forward</button>
@@ -590,6 +599,11 @@ class Battle {
   constructor(lv, world, isBoss) {
     this.lv = lv;
     this.world = world;
+    this.authored = world.id === 'W1' ? worldOneLevel(lv.stage_index) : null;
+    this.rootheart = world.id === 'W1' && isBoss;
+    this.phase = 1;
+    this.winScheduled = false;
+    this.loseScheduled = false;
     this.isBoss = isBoss;
     this.canvas = $('#battle');
     this.ctx = this.canvas.getContext('2d');
@@ -599,6 +613,13 @@ class Battle {
     this.enemies = [];
     this.balls = [];
     this.effects = [];
+    this.particles = [];
+    this.trauma = 0;
+    this.recoil = 0;
+    this.releaseGlow = 0;
+    this.chargeStart = 0;
+    this.charge = 0;
+    this.windup = 0;
     this.turn = 1;
     this.maxHp = 12 + state.permanentBoosts.vitality;
     this.hp = this.maxHp;
@@ -620,6 +641,7 @@ class Battle {
     this.hitCounter = 0;
     this.breakCounter = 0;
     this.enemyIntent = null;
+    this.activeHitCooldown = new WeakMap();
     this.usedFreeze = false;
     this.usedPhoenix = 0;
     this.healsThisRoom = 0;
@@ -634,6 +656,7 @@ class Battle {
     $('#volley-count').textContent = this.totalBalls;
     this.generateBlocks();
     this.generateEnemies();
+    this.syncObjective();
     this.enemyIntent = this.rollIntent();
     this.updateIntentLabel();
     this.attach();
@@ -643,6 +666,9 @@ class Battle {
     this.down = (e) => {
       if (this.paused || this.active) return;
       this.aiming = true;
+      this.chargeStart = performance.now();
+      this.charge = 0;
+      try { this.canvas.setPointerCapture(e.pointerId); } catch {}
       this.updateAim(e);
     };
     this.move = (e) => {
@@ -651,6 +677,7 @@ class Battle {
     this.up = () => {
       if (!this.aiming) return;
       this.aiming = false;
+      this.charge = Math.min(1, (performance.now() - this.chargeStart) / 700);
       this.fire();
     };
     this.canvas.addEventListener('pointerdown', this.down);
@@ -691,6 +718,11 @@ class Battle {
     this.volleyTime = 0;
     this.firstLanding = null;
     this.speedFactor = 1;
+    this.windup = 0.105 + this.charge * 0.055;
+    this.shotClock = -this.windup;
+    this.recoil = 0.28;
+    this.releaseGlow = 0.52;
+    this.impact(this.launchX, 558, '#ffdca1', settings.reducedMotion ? 0 : 13, 135);
     $('#combat-hint')?.remove();
   }
 
@@ -706,11 +738,19 @@ class Battle {
       wallBounces: 0,
       element: this.getBallElement(),
       pierced: false,
-      prismDone: false
+      prismDone: false,
+      trail: []
     };
   }
 
   generateBlocks() {
+    if (this.authored) {
+      this.blocks = this.authored.blocks.map(([c, r, kind, hp], index) => ({
+        id:index + 1, c, r, x:24 + c * 62, y:140 + r * 40, w:56, h:34,
+        kind, hp, maxHp:hp, burning:false
+      }));
+      return;
+    }
     const cols = this.lv.layout.columns || 6;
     const rows = this.lv.layout.rows || 5;
     const brickW = 56;
@@ -804,7 +844,7 @@ class Battle {
         const w = isBossSprite ? 150 : 86;
         const h = isBossSprite ? 108 : 74;
         const x = total === 1 ? 135 : 60 + index * 115;
-        const hp = Math.round((isBossSprite ? 32 : 7) * (def.hp_multiplier || 1) + (this.lv.stage_index * 0.3));
+        const hp = this.authored ? this.authored.enemyHp : Math.round((isBossSprite ? 32 : 7) * (def.hp_multiplier || 1) + (this.lv.stage_index * 0.3));
         this.enemies.push({
           x,
           y: isBossSprite ? 42 : 58,
@@ -823,9 +863,27 @@ class Battle {
   updateIntentLabel() {
     const label = $('#intent-label');
     if (label) label.textContent = this.enemyIntent?.label || 'No intent';
+    const indicator = $('#boss-indicator');
+    if (indicator && this.rootheart) {
+      const roots = this.blocks.filter(b => b.kind === 'root').length;
+      indicator.textContent = `ROOTHEART · PHASE ${this.phase} / 3 · ${roots ? `${roots} ROOTS SHIELDING` : 'HEART EXPOSED'}`;
+      indicator.classList.toggle('exposed', roots === 0);
+    }
   }
 
   rollIntent() {
+    if (this.rootheart) {
+      const ratio = this.enemies[0]?.hp / this.enemies[0]?.maxHp ?? 1;
+      this.phase = bossPhase(ratio);
+      const roots = this.blocks.filter(b => b.kind === 'root').length;
+      const options = this.phase === 1
+        ? [{type:'fortify',label:'ROOTHEART · Regrow 1 root',value:1},{type:'strike',label:'ROOTHEART · Thorn lash (2 HP)',value:2}]
+        : this.phase === 2
+        ? [{type:'strike',label:'ROOTHEART · Double lash (3 HP)',value:3},{type:'fortify',label:'ROOTHEART · Regrow 2 roots',value:2}]
+        : [{type:'strike',label:'ROOTHEART · Heart burst (4 HP)',value:4},{type:'push',label:'ROOTHEART · Root surge',value:24}];
+      const selected = options[(this.turn - 1) % options.length];
+      return selected.type === 'fortify' && roots >= 4 ? {type:'strike',label:'ROOTHEART · Thorn lash (2 HP)',value:2}:selected;
+    }
     const mechanic = this.world.mechanic;
     const table = {
       bloom: [
@@ -883,6 +941,11 @@ class Battle {
     }
     const intent = this.enemyIntent;
     if (!intent) return;
+    if (this.authored && intent.type === 'strike' && this.authored.enemyDamage === 0) return;
+    if (this.rootheart && intent.type === 'fortify') {
+      this.regrowRoots(intent.value);
+      return;
+    }
     switch (intent.type) {
       case 'strike':
         this.applyPlayerDamage(intent.value, `-${intent.value}`);
@@ -914,6 +977,17 @@ class Battle {
     }
   }
 
+  regrowRoots(amount) {
+    const anchors = [[1,2],[4,2],[1,3],[4,3]];
+    const occupied = new Set(this.blocks.map(b => `${b.c},${b.r}`));
+    for (const [c,r] of anchors) {
+      if (amount <= 0) break;
+      if (occupied.has(`${c},${r}`)) continue;
+      this.blocks.push({id:Math.random(),c,r,x:24+c*62,y:140+r*40,w:56,h:34,kind:'root',hp:2+this.phase,maxHp:2+this.phase,burning:false});
+      amount--;
+    }
+  }
+
   spawnBlocks(amount, pool) {
     const kinds = Array.isArray(pool) ? pool : ['stone'];
     const occupied = new Set(this.blocks.map((b) => `${b.c}-${b.r}`));
@@ -942,8 +1016,7 @@ class Battle {
   }
 
   shiftBoard() {
-    this.direction *= -1;
-    this.blocks.forEach((b) => {
+    this.direction *= -1;    this.blocks.forEach((b) => {
       b.x = Math.max(24, Math.min(24 + 5 * 62, b.x + this.direction * 18));
     });
   }
@@ -997,12 +1070,15 @@ class Battle {
 
     if (hasUpgrade('shock') && this.hitCounter % 6 === 0) {
       this.hitNeighbors(block, 1, 72);
-      const enemy = this.enemies[0];      if (enemy) enemy.hp -= 1;
+      const enemy = this.enemies[0];
+      if (enemy) enemy.hp -= 1;
     }
 
     if (block.kind === 'cursed') this.applyPlayerDamage(1, 'Curse');
     if (block.kind === 'ice') this.usedFreeze = false;
 
+    this.impact(ball.x,ball.y,block.hp <= 0 ? '#ffcd87' : '#d6bc9b',block.hp <= 0 ? 9 : 4,block.hp <= 0 ? 138 : 73);
+    this.trauma = Math.min(.60, this.trauma + (block.hp <= 0 ? .22 : .065));
     if (block.hp <= 0) {
       this.breakCounter += 1;
       if (['explosive', 'lava'].includes(block.kind) || (block.burning && hasUpgrade('blast'))) this.hitNeighbors(block, hasUpgrade('chain') ? 2 : 1, hasUpgrade('chain') ? 110 : 82);
@@ -1021,8 +1097,21 @@ class Battle {
 
   handleEnemyHit(ball, enemy) {
     let damage = this.baseDamage;
+    if (this.rootheart && enemy.boss && this.blocks.some(b => b.kind === 'root')) {
+      damage = Math.max(.5, damage * .2);
+      if (this.hitCounter % 8 === 0) this.effects.push({ x:enemy.x+enemy.w/2,y:enemy.y-18,text:'ROOT SHIELD',life:.8,color:'#afc8aa' });
+    }
     if (hasUpgrade('crit') && Math.random() < 0.05 * countUpgrade('crit')) damage *= 2;
     enemy.hp -= damage;
+    if (this.rootheart && enemy.boss) {
+      const next = bossPhase(Math.max(0,enemy.hp)/enemy.maxHp);
+      if (next > this.phase) {
+        this.phase = next;
+        this.effects.push({x:210,y:88,text:`PHASE ${next}`,life:1.3,color:'#f0c99c'});
+        this.regrowRoots(next===2 ? 2 : 4);
+      }
+      this.updateIntentLabel();
+    }
     if (hasUpgrade('frost') && !this.usedFreeze) {
       this.usedFreeze = true;
       this.enemyIntent = { type: 'none', label: 'Frozen this turn', value: 0 };
@@ -1031,11 +1120,51 @@ class Battle {
     if (hasUpgrade('pierce') && !ball.pierced) ball.pierced = true;
     else ball.vy = Math.abs(ball.vy);
     this.effects.push({ x: enemy.x + enemy.w / 2, y: enemy.y, text: `-${Math.round(damage)}`, life: 0.8, color: '#f7c7ae' });
+    this.impact(ball.x,ball.y,'#f5b99a',8,130);
+    this.trauma=Math.min(.65,this.trauma+.23);
+  }
+
+  syncObjective() {
+    const counter = $('#brick-count');
+    if (counter) counter.textContent = this.blocks.filter(b => b.hp > 0).length;
+    if (this.enemies.length === 0) {
+      const intent = $('#intent-label');
+      if (intent) intent.textContent = 'Break the remaining bricks';
+    }
+  }
+
+  roomCleared() {
+    return isRoomCleared(this.enemies, this.blocks);
+  }
+
+  impact(x, y, color = '#f7cb91', count = 5, force = 115) {
+    if (settings.reducedMotion) return;
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = force * (.35 + Math.random() * .8);
+      this.particles.push({
+        x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+        life: .17 + Math.random() * .22, maxLife: .38,
+        size: 1.4 + Math.random() * 2.6, color
+      });
+    }
+    if (this.particles.length > 160) this.particles.splice(0, this.particles.length - 160);
   }
 
   update(dt) {
     if (this.paused || this.disposed) return;
-    dt = Math.min(0.04, dt) * this.speedFactor;
+    const realDt = Math.min(0.04, dt);
+    this.trauma = Math.max(0, this.trauma - realDt * 2.6);
+    this.recoil = Math.max(0, this.recoil - realDt);
+    this.releaseGlow = Math.max(0, this.releaseGlow - realDt * 2);
+    for (const p of this.particles) {
+      p.x += p.vx * realDt; p.y += p.vy * realDt;
+      p.vx *= .96; p.vy = p.vy * .96 + 22 * realDt;
+      p.life -= realDt;
+    }
+    this.particles = this.particles.filter(p => p.life > 0);
+    if (this.aiming) this.charge = Math.min(1, (performance.now() - this.chargeStart) / 700);
+    dt = realDt * this.speedFactor;
 
     if (this.active) {
       this.volleyTime += dt;
@@ -1051,6 +1180,7 @@ class Battle {
       const surviving = [];
       for (const ball of this.balls) {
         ball.life += dt;
+        ball.hitReset=Math.max(0,(ball.hitReset||0)-dt);
         let alive = true;
         const steps = Math.max(1, Math.ceil(dt / 0.008));
         const sdt = dt / steps;
@@ -1079,19 +1209,27 @@ class Battle {
           }
 
           for (const enemy of this.enemies) {
-            if (enemy.hp > 0 && ball.x >= enemy.x && ball.x <= enemy.x + enemy.w && ball.y >= enemy.y && ball.y <= enemy.y + enemy.h) {
+            if (enemy.hp > 0 && (!ball.lastEnemyHit || ball.lastEnemyHit !== enemy || ball.hitReset <= 0) && ball.x >= enemy.x && ball.x <= enemy.x + enemy.w && ball.y >= enemy.y && ball.y <= enemy.y + enemy.h) {
               this.handleEnemyHit(ball, enemy);
+              ball.lastEnemyHit=enemy;ball.hitReset=.09;
               break;
             }
           }
         }
-        if (alive && ball.life < 11) surviving.push(ball);
+        if (alive && ball.life < 11) {
+          ball.trail.push({x:ball.x,y:ball.y});
+          if (ball.trail.length > 7) ball.trail.shift();
+          surviving.push(ball);
+        }
       }
       this.balls = surviving;
       this.enemies = this.enemies.filter((e) => e.hp > 0);
+      this.blocks = this.blocks.filter((b) => b.hp > 0);
+      this.syncObjective();
       this.effects = this.effects.filter((e) => (e.life -= dt) > 0);
 
-      if (!this.enemies.length) {
+      if (this.roomCleared() && !this.winScheduled) {
+        this.winScheduled = true;
         this.disposed = true;
         setTimeout(victory, 450);
         return;
@@ -1111,14 +1249,15 @@ class Battle {
     this.turn += 1;
     this.launchX = this.firstLanding ?? this.launchX;
     this.angle = -Math.PI / 2;
-    this.resolveIntent();
-    if (this.hp <= 0) {
+    if (this.enemies.length) this.resolveIntent();
+    if (this.hp <= 0 && !this.loseScheduled) {
+      this.loseScheduled = true;
       this.disposed = true;
       setTimeout(defeat, 450);
       return;
     }
-    this.pushBoard(12);
-    if (this.blocks.some((b) => b.y > 490)) {
+    if (this.enemies.length) this.pushBoard(12);
+    if (this.enemies.length && this.blocks.some((b) => b.y > 490)) {
       this.applyPlayerDamage(2, 'Crush');
       if (this.hp <= 0) {
         this.disposed = true;
@@ -1126,8 +1265,9 @@ class Battle {
         return;
       }
     }
-    this.enemyIntent = this.rollIntent();
+    this.enemyIntent = this.enemies.length ? this.rollIntent() : {type:'none',label:'Clear remaining bricks',value:0};
     this.updateIntentLabel();
+    this.syncObjective();
     this.speedFactor = 1;
     const ff = $('#fast-forward');
     if (ff) ff.style.display = 'none';
@@ -1146,13 +1286,16 @@ class Battle {
 
   drawBricks() {
     const ctx = this.ctx;
-    const typeMap = { stone: 'stone', cracked: 'stone', explosive: 'ember', lava: 'ember', metal: 'armor', bone: 'stone', cursed: 'curse', mirror: 'mirror', ice: 'crystal', crystal: 'crystal', conveyor: 'armor', portal: 'portal' };
+    const typeMap = { root:'ember', stone: 'stone', cracked: 'stone', explosive: 'ember', lava: 'ember', metal: 'armor', bone: 'stone', cursed: 'curse', mirror: 'mirror', ice: 'crystal', crystal: 'crystal', conveyor: 'armor', portal: 'portal' };
     for (const block of this.blocks) {
       this.sprite(`bricks/${typeMap[block.kind] || 'stone'}`, block.x, block.y, block.w, block.h);
       ctx.fillStyle = '#f7e4c0';
       ctx.font = 'bold 15px Trebuchet MS';
       ctx.textAlign = 'center';
       ctx.fillText(String(Math.max(0, Math.ceil(block.hp))), block.x + block.w / 2, block.y + 22);
+      if (block.kind === 'root') {
+        ctx.strokeStyle='#9bcd99';ctx.lineWidth=3;ctx.strokeRect(block.x+2,block.y+2,block.w-4,block.h-4);
+      }
       if (block.burning) {
         ctx.fillStyle = '#efaa75';
         ctx.fillRect(block.x + 4, block.y + 4, 10, 10);
@@ -1174,12 +1317,21 @@ class Battle {
   }
 
   drawPlayer() {
-    this.sprite(`hero/pyromancer/${this.active ? 'cast' : 'aim'}`, 6, 468, 104, 128);
+    this.sprite(`hero/pyromancer/${this.active ? 'cast' : 'aim'}`, 6, 468 + this.recoil * 25, 104, 128);
     const ctx = this.ctx;
     ctx.fillStyle = '#f0d4a5';
     ctx.beginPath();
-    ctx.arc(this.launchX, 558, 9, 0, Math.PI * 2);
-    ctx.fill();
+    const charge = this.aiming ? this.charge : 0;
+    const orbR = 9 + charge * 5 + this.releaseGlow * 11;
+    ctx.shadowColor='#ffcc80';ctx.shadowBlur=10+charge*24+this.releaseGlow*25;
+    ctx.arc(this.launchX, 558, orbR, 0, Math.PI * 2);
+    ctx.fill();ctx.shadowBlur=0;
+    if(this.aiming){
+      ctx.strokeStyle='#f5d29f';ctx.lineWidth=2+charge*2;
+      ctx.beginPath();ctx.arc(this.launchX,558,17+charge*14,-Math.PI*.9,-Math.PI*.9+Math.PI*2*charge);ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(this.launchX-15,574+charge*5);ctx.quadraticCurveTo(this.launchX,590+charge*15,this.launchX+15,574+charge*5);ctx.stroke();
+    }
     ctx.strokeStyle = '#fff4d8';
     ctx.lineWidth = 2;
     ctx.stroke();
@@ -1214,7 +1366,27 @@ class Battle {
 
   drawBallsAndFx() {
     const ctx = this.ctx;
-    for (const ball of this.balls) this.sprite(`balls/${ball.element}`, ball.x - 9, ball.y - 9, 18, 18);
+    for (const ball of this.balls) {
+      if (!settings.reducedMotion && ball.trail.length > 1) {
+        ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+        ctx.shadowColor=ball.element==='fire'?'#ff925e':'#ffdfb2';ctx.shadowBlur=13;
+        for(let i=1;i<ball.trail.length;i++){
+          const a=ball.trail[i-1],b=ball.trail[i];
+          ctx.globalAlpha=.05+.5*i/ball.trail.length;
+          ctx.strokeStyle=ball.element==='fire'?'#ffac68':'#fce0b6';
+          ctx.lineWidth=1+6*i/ball.trail.length;
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        }
+        ctx.restore();
+      }
+      ctx.save();ctx.shadowColor='#ffdeaa';ctx.shadowBlur=settings.reducedMotion?0:17;
+      this.sprite(`balls/${ball.element}`, ball.x - 11, ball.y - 11, 22, 22);ctx.restore();
+    }
+    for(const p of this.particles){
+      ctx.globalAlpha=Math.max(0,p.life/p.maxLife);
+      ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+    }
+    ctx.globalAlpha=1;
     for (const fx of this.effects) {
       ctx.globalAlpha = Math.max(0, fx.life);
       ctx.fillStyle = fx.color || '#f7e4c0';
@@ -1233,18 +1405,26 @@ class Battle {
     ctx.fillText(`Turn ${this.turn}`, 16, 28);
     ctx.fillText(`Shield ${this.shield}`, 16, 48);
     ctx.fillText(`${this.totalBalls} balls`, 302, 588);
+    ctx.fillText(`Bricks ${this.blocks.filter(b=>b.hp>0).length}`, 16, 588);
   }
 
   draw() {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.W, this.H);
-    ctx.fillStyle = '#122131b8';
+    ctx.save();
+    if(this.trauma>0&&!settings.reducedMotion){
+      const amt=this.trauma*this.trauma;
+      const time=performance.now()*.033;
+      ctx.translate(Math.sin(time)*5*amt,Math.cos(time*1.2)*4*amt);
+    }
+    ctx.fillStyle = '#21192ea0';
     ctx.fillRect(0, 0, this.W, this.H);
     this.drawEnemies();
     this.drawBricks();
     this.drawPlayer();
     this.drawBallsAndFx();
     this.drawHudInCanvas();
+    ctx.restore();
   }
 
   start() {
