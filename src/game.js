@@ -1,5 +1,6 @@
 import levelsData from '../levels.json' with { type: 'json' };
 import { worldOneLevel, bossPhase } from './world1.js';
+import { isRoomCleared } from './combat-rules.js';
 
 const $ = (q, parent = document) => parent.querySelector(q);
 const view = $('#view');
@@ -1133,7 +1134,7 @@ class Battle {
   }
 
   roomCleared() {
-    return this.enemies.length === 0 && this.blocks.every(b => b.hp <= 0);
+    return isRoomCleared(this.enemies, this.blocks);
   }
 
   impact(x, y, color = '#f7cb91', count = 5, force = 115) {
