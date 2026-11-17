@@ -1,0 +1,283 @@
+{
+  "version": "0.3",
+  "generated_at": "2026-11-17",
+  "asset_count": 33,
+  "source": "original-code-authored-vector",
+  "purpose": "first playable art slice",
+  "files": [
+    {
+      "path": "assets/production/hero/pyromancer/idle.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/hero/pyromancer/aim.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/hero/pyromancer/cast.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/hero/pyromancer/hurt.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/hero/pyromancer/victory.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/hero/pyromancer/defeat.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/enemy/skeleton/idle.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/enemy/skeleton/windup.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/enemy/skeleton/attack.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/enemy/skeleton/hurt.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/enemy/skeleton/death.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/stone/intact.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/stone/cracked.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/stone/critical.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/armor/intact.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/armor/cracked.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/armor/critical.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/ember/intact.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/ember/cracked.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/brick/ember/critical.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/ball/neutral.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/ball/fire.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/ball/ice.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/ball/storm.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/ball/poison.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/ball/arcane.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/arena/whispering_woods/far.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/arena/whispering_woods/mid.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/arena/whispering_woods/near.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/prop/torch.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/prop/arch.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/prop/crystal.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    },
+    {
+      "path": "assets/production/prop/banner.svg",
+      "status": "concept-rendered",
+      "source": "original vector code",
+      "license": "original project work",
+      "requires_browser_visual_approval": true,
+      "technical_checks_passed": false
+    }
+  ],
+  "qa": {
+    "basic_svg_structure": "passed",
+    "issues": [],
+    "not_yet_verified": [
+      "alpha rasterization",
+      "native-game-scale browser review",
+      "frame transition continuity",
+      "atlas size and compression"
+    ]
+  }
+}
