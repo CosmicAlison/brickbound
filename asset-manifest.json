@@ -1,6 +1,6 @@
 {
   "version": "0.3.0",
-  "production_status": "candidate \u2014 layout and alpha should be reviewed",
+  "production_status": "candidate — layout and alpha should be reviewed",
   "assets": [
     {
       "id": "hero/pyromancer/idle",
@@ -133,66 +133,74 @@
     {
       "id": "bricks/stone",
       "path": "/assets/bricks/stone.webp",
-      "width": 176,
-      "height": 133,
-      "source": "generated concept raster sheet",
-      "status": "candidate_requires_visual_review"
+      "width": 224,
+      "height": 176,
+      "source": "re-extracted from original generated brick sheet (colourful_cartoon_game_asset_sheet.png)",
+      "status": "candidate_reextracted_requires_in_game_review",
+      "crop_method": "alpha-bounded top-row slot; 224x176 transparent padded canvas, no upscaling"
     },
     {
       "id": "bricks/armor",
       "path": "/assets/bricks/armor.webp",
-      "width": 209,
-      "height": 127,
-      "source": "generated concept raster sheet",
-      "status": "candidate_requires_visual_review"
+      "width": 224,
+      "height": 176,
+      "source": "re-extracted from original generated brick sheet (colourful_cartoon_game_asset_sheet.png)",
+      "status": "candidate_reextracted_requires_in_game_review",
+      "crop_method": "alpha-bounded top-row slot; 224x176 transparent padded canvas, no upscaling"
     },
     {
       "id": "bricks/mirror",
       "path": "/assets/bricks/mirror.webp",
-      "width": 209,
-      "height": 127,
-      "source": "generated concept raster sheet",
-      "status": "candidate_requires_visual_review"
+      "width": 224,
+      "height": 176,
+      "source": "re-extracted from original generated brick sheet (colourful_cartoon_game_asset_sheet.png)",
+      "status": "candidate_reextracted_requires_in_game_review",
+      "crop_method": "alpha-bounded top-row slot; 224x176 transparent padded canvas, no upscaling"
     },
     {
       "id": "bricks/ember",
       "path": "/assets/bricks/ember.webp",
-      "width": 189,
-      "height": 127,
-      "source": "generated concept raster sheet",
-      "status": "candidate_requires_visual_review"
+      "width": 224,
+      "height": 176,
+      "source": "re-extracted from original generated brick sheet (colourful_cartoon_game_asset_sheet.png)",
+      "status": "candidate_reextracted_requires_in_game_review",
+      "crop_method": "alpha-bounded top-row slot; 224x176 transparent padded canvas, no upscaling"
     },
     {
       "id": "bricks/crystal",
       "path": "/assets/bricks/crystal.webp",
-      "width": 190,
-      "height": 140,
-      "source": "generated concept raster sheet",
-      "status": "candidate_requires_visual_review"
+      "width": 224,
+      "height": 176,
+      "source": "re-extracted from original generated brick sheet (colourful_cartoon_game_asset_sheet.png)",
+      "status": "candidate_reextracted_requires_in_game_review",
+      "crop_method": "alpha-bounded top-row slot; 224x176 transparent padded canvas, no upscaling"
     },
     {
       "id": "bricks/curse",
       "path": "/assets/bricks/curse.webp",
-      "width": 188,
-      "height": 128,
-      "source": "generated concept raster sheet",
-      "status": "candidate_requires_visual_review"
+      "width": 224,
+      "height": 176,
+      "source": "re-extracted from original generated brick sheet (colourful_cartoon_game_asset_sheet.png)",
+      "status": "candidate_reextracted_requires_in_game_review",
+      "crop_method": "alpha-bounded top-row slot; 224x176 transparent padded canvas, no upscaling"
     },
     {
       "id": "bricks/portal",
       "path": "/assets/bricks/portal.webp",
-      "width": 209,
-      "height": 129,
-      "source": "generated concept raster sheet",
-      "status": "candidate_requires_visual_review"
+      "width": 224,
+      "height": 176,
+      "source": "re-extracted from original generated brick sheet (colourful_cartoon_game_asset_sheet.png)",
+      "status": "candidate_reextracted_requires_in_game_review",
+      "crop_method": "alpha-bounded top-row slot; 224x176 transparent padded canvas, no upscaling"
     },
     {
       "id": "bricks/treasure",
       "path": "/assets/bricks/treasure.webp",
-      "width": 175,
-      "height": 135,
-      "source": "generated concept raster sheet",
-      "status": "candidate_requires_visual_review"
+      "width": 224,
+      "height": 176,
+      "source": "re-extracted from original generated brick sheet (colourful_cartoon_game_asset_sheet.png)",
+      "status": "candidate_reextracted_requires_in_game_review",
+      "crop_method": "alpha-bounded top-row slot; 224x176 transparent padded canvas, no upscaling"
     },
     {
       "id": "props/torch",
